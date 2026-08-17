@@ -1065,6 +1065,41 @@
       cursor: pointer;
     }
 
+
+    /* 신청내역이 길어져도 전체 페이지가 늘어나지 않도록 */
+    #reasonList:not(.placeholder) {
+      max-height: 360px;
+      overflow-y: auto;
+      padding-right: 4px;
+      margin-top: 6px;
+    }
+
+    #reasonList:not(.placeholder)::-webkit-scrollbar {
+      width: 4px;
+    }
+
+    #reasonList:not(.placeholder)::-webkit-scrollbar-thumb {
+      background: #d9d9d9;
+      border-radius: 99px;
+    }
+
+    .reason-item {
+      padding: 10px 0;
+    }
+
+    .reason-content {
+      margin-top: 5px;
+      line-height: 1.4;
+    }
+
+    .reason-meta {
+      margin-top: 5px;
+    }
+
+    .reason-evidence-button {
+      margin-top: 6px;
+    }
+
     .logout-button {
       width: 100%;
       height: 44px;

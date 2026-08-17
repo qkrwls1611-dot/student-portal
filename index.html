@@ -961,6 +961,12 @@
       line-height: 1.5;
     }
 
+    .reason-period-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+    }
+
     .reason-submit-button {
       width: 100%;
       height: 46px;
@@ -1395,24 +1401,40 @@
           <option value="">선택해주세요</option>
           <option value="지각">지각</option>
           <option value="조퇴">조퇴</option>
+          <option value="외출">외출</option>
           <option value="결석">결석</option>
         </select>
 
         <div id="reasonPeriodWrap" style="display:none;">
-          <label class="reason-label" for="reasonPeriod">교시</label>
-          <select
-            id="reasonPeriod"
-            class="reason-input"
-          >
-            <option value="">선택해주세요</option>
-            <option value="1교시 (09:00~10:40)">1교시 · 09:00~10:40</option>
-            <option value="2교시 (11:00~12:50)">2교시 · 11:00~12:50</option>
-            <option value="3교시 (14:00~15:40)">3교시 · 14:00~15:40</option>
-            <option value="4교시 (16:00~17:40)">4교시 · 16:00~17:40</option>
-            <option value="5교시 (18:50~19:50)">5교시 · 18:50~19:50</option>
-            <option value="6교시 (20:00~21:00)">6교시 · 20:00~21:00</option>
-            <option value="7교시 (21:10~22:00)">7교시 · 21:10~22:00</option>
-          </select>
+          <div id="reasonPeriodSingleWrap">
+            <label class="reason-label" for="reasonStartPeriod">교시</label>
+            <select
+              id="reasonStartPeriod"
+              class="reason-input"
+            >
+              <option value="">선택해주세요</option>
+            </select>
+          </div>
+
+          <div id="reasonPeriodRangeWrap" style="display:none;">
+            <label class="reason-label">교시 범위</label>
+
+            <div class="reason-period-grid">
+              <select
+                id="reasonRangeStart"
+                class="reason-input"
+              >
+                <option value="">시작 교시</option>
+              </select>
+
+              <select
+                id="reasonRangeEnd"
+                class="reason-input"
+              >
+                <option value="">종료 교시</option>
+              </select>
+            </div>
+          </div>
         </div>
 
         <label class="reason-label" for="reasonContent">사유내용</label>
@@ -3029,20 +3051,140 @@ function updateReasonPeriodVisibility() {
       "reasonPeriodWrap"
     );
 
+  const singleWrap =
+    document.getElementById(
+      "reasonPeriodSingleWrap"
+    );
+
+  const rangeWrap =
+    document.getElementById(
+      "reasonPeriodRangeWrap"
+    );
+
+  const single =
+    document.getElementById(
+      "reasonStartPeriod"
+    );
+
+  const rangeStart =
+    document.getElementById(
+      "reasonRangeStart"
+    );
+
+  const rangeEnd =
+    document.getElementById(
+      "reasonRangeEnd"
+    );
+
+  const periods = [
+    {
+      value: "1교시 (09:00~10:40)",
+      label: "1교시 · 09:00~10:40"
+    },
+    {
+      value: "2교시 (11:00~12:50)",
+      label: "2교시 · 11:00~12:50"
+    },
+    {
+      value: "3교시 (14:00~15:40)",
+      label: "3교시 · 14:00~15:40"
+    },
+    {
+      value: "4교시 (16:00~17:40)",
+      label: "4교시 · 16:00~17:40"
+    },
+    {
+      value: "5교시 (18:50~19:50)",
+      label: "5교시 · 18:50~19:50"
+    },
+    {
+      value: "6교시 (20:00~21:00)",
+      label: "6교시 · 20:00~21:00"
+    },
+    {
+      value: "7교시 (21:10~22:00)",
+      label: "7교시 · 21:10~22:00"
+    }
+  ];
+
+  function fillSelect(
+    select,
+    firstLabel
+  ) {
+    select.innerHTML =
+      '<option value="">' +
+      firstLabel +
+      '</option>';
+
+    periods.forEach(
+      function(item) {
+        const option =
+          document.createElement(
+            "option"
+          );
+
+        option.value =
+          item.value;
+
+        option.textContent =
+          item.label;
+
+        select.appendChild(
+          option
+        );
+      }
+    );
+  }
+
+  fillSelect(
+    single,
+    "선택해주세요"
+  );
+
+  fillSelect(
+    rangeStart,
+    "시작 교시"
+  );
+
+  fillSelect(
+    rangeEnd,
+    "종료 교시"
+  );
+
   if (
     type === "지각" ||
+    type === "외출"
+  ) {
+    wrap.style.display =
+      "block";
+
+    singleWrap.style.display =
+      "none";
+
+    rangeWrap.style.display =
+      "block";
+
+  } else if (
     type === "조퇴"
   ) {
     wrap.style.display =
       "block";
+
+    singleWrap.style.display =
+      "block";
+
+    rangeWrap.style.display =
+      "none";
+
   } else {
     wrap.style.display =
       "none";
 
-    document
-      .getElementById(
-        "reasonPeriod"
-      ).value = "";
+    singleWrap.style.display =
+      "none";
+
+    rangeWrap.style.display =
+      "none";
   }
 }
 
@@ -3063,9 +3205,19 @@ async function submitReason() {
       "reasonType"
     ).value.trim();
 
-  const reasonPeriod =
+  const reasonStartPeriod =
     document.getElementById(
-      "reasonPeriod"
+      "reasonStartPeriod"
+    ).value.trim();
+
+  const reasonRangeStart =
+    document.getElementById(
+      "reasonRangeStart"
+    ).value.trim();
+
+  const reasonRangeEnd =
+    document.getElementById(
+      "reasonRangeEnd"
     ).value.trim();
 
   const reasonContent =
@@ -3089,11 +3241,24 @@ async function submitReason() {
 
   if (
     (reasonType === "지각" ||
-     reasonType === "조퇴") &&
-    !reasonPeriod
+     reasonType === "외출") &&
+    (
+      !reasonRangeStart ||
+      !reasonRangeEnd
+    )
   ) {
     alert(
-      "교시를 선택해주세요."
+      "시작 교시와 종료 교시를 선택해주세요."
+    );
+    return;
+  }
+
+  if (
+    reasonType === "조퇴" &&
+    !reasonStartPeriod
+  ) {
+    alert(
+      "조퇴 교시를 선택해주세요."
     );
     return;
   }
@@ -3120,8 +3285,14 @@ async function submitReason() {
             reasonDate,
           reasonType:
             reasonType,
-          period:
-            reasonPeriod,
+          startPeriod:
+            reasonType === "조퇴"
+              ? reasonStartPeriod
+              : reasonRangeStart,
+          endPeriod:
+            reasonType === "조퇴"
+              ? ""
+              : reasonRangeEnd,
           reasonContent:
             reasonContent
         }
@@ -3152,7 +3323,17 @@ async function submitReason() {
 
     document
       .getElementById(
-        "reasonPeriod"
+        "reasonStartPeriod"
+      ).value = "";
+
+    document
+      .getElementById(
+        "reasonRangeStart"
+      ).value = "";
+
+    document
+      .getElementById(
+        "reasonRangeEnd"
       ).value = "";
 
     updateReasonPeriodVisibility();

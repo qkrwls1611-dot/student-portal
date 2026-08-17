@@ -663,7 +663,7 @@
     }
 
     .score-chart-box {
-      padding: 14px 12px 10px;
+      padding: 16px 8px 12px;
       border: 1px solid #eceef2;
       border-radius: 15px;
       background: #fff;
@@ -723,16 +723,15 @@
 
     .score-svg-wrap {
       width: 100%;
-      overflow-x: auto;
-      overflow-y: hidden;
+      overflow: hidden;
       padding-bottom: 2px;
     }
 
     .score-svg {
       display: block;
       width: 100%;
-      min-width: 520px;
-      height: 245px;
+      height: 315px;
+      min-width: 0;
     }
 
     .score-summary-strip {
@@ -2095,13 +2094,13 @@ function buildTotalTrendSvg_(trend) {
     );
   }
 
-  const width = 620;
-  const height = 245;
+  const width = 760;
+  const height = 315;
 
-  const left = 38;
-  const right = 18;
-  const top = 18;
-  const bottom = 52;
+  const left = 44;
+  const right = 30;
+  const top = 24;
+  const bottom = 64;
 
   const plotWidth =
     width -
@@ -2269,7 +2268,7 @@ function buildTotalTrendSvg_(trend) {
           '" y="' +
           (height - 27) +
           '" text-anchor="middle" ' +
-          'font-size="9" font-weight="700" fill="#444">' +
+          'font-size="7.5" font-weight="700" fill="#444">' +
           escapeHtml(
             item.examName || ''
           ) +
@@ -2279,7 +2278,7 @@ function buildTotalTrendSvg_(trend) {
           x +
           '" y="' +
           (height - 12) +
-          '" text-anchor="middle" font-size="8" fill="#999">' +
+          '" text-anchor="middle" font-size="7" fill="#999">' +
           escapeHtml(
             item.examDate || ''
           ) +

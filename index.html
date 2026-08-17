@@ -907,6 +907,158 @@
       }
     }
 
+
+    /* =========================
+       사유서
+    ========================= */
+
+    .reason-form {
+      padding-top: 2px;
+    }
+
+    .reason-label {
+      display: block;
+      margin: 12px 0 7px;
+      font-size: 12px;
+      font-weight: 800;
+    }
+
+    .reason-input,
+    .reason-textarea {
+      width: 100%;
+      border: 1px solid #ddd;
+      border-radius: 11px;
+      background: #fff;
+      font-family: inherit;
+      font-size: 13px;
+      outline: none;
+    }
+
+    .reason-input {
+      height: 44px;
+      padding: 0 12px;
+    }
+
+    .reason-textarea {
+      min-height: 110px;
+      padding: 12px;
+      resize: vertical;
+      line-height: 1.55;
+    }
+
+    .reason-input:focus,
+    .reason-textarea:focus {
+      border-color: #e53935;
+    }
+
+    .reason-help {
+      margin-top: 9px;
+      padding: 9px 10px;
+      border-radius: 10px;
+      background: #fff6e5;
+      color: #7a5d00;
+      font-size: 10px;
+      line-height: 1.5;
+    }
+
+    .reason-submit-button {
+      width: 100%;
+      height: 46px;
+      margin-top: 12px;
+      border: 0;
+      border-radius: 11px;
+      background: #e53935;
+      color: #fff;
+      font-size: 13px;
+      font-weight: 900;
+      cursor: pointer;
+    }
+
+    .reason-submit-button:disabled {
+      opacity: .6;
+      cursor: default;
+    }
+
+    .reason-list-title {
+      margin-top: 18px;
+      padding-top: 15px;
+      border-top: 1px solid #eee;
+      font-size: 12px;
+      font-weight: 900;
+    }
+
+    .reason-item {
+      padding: 12px 0;
+      border-bottom: 1px solid #eee;
+    }
+
+    .reason-item:last-child {
+      border-bottom: 0;
+    }
+
+    .reason-item-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+    }
+
+    .reason-date {
+      font-size: 11px;
+      font-weight: 900;
+    }
+
+    .reason-status {
+      padding: 4px 8px;
+      border-radius: 999px;
+      background: #f2f3f5;
+      color: #555;
+      font-size: 9px;
+      font-weight: 900;
+      white-space: nowrap;
+    }
+
+    .reason-status.approved {
+      background: #edf8ef;
+      color: #2e7d32;
+    }
+
+    .reason-status.rejected {
+      background: #fff0f0;
+      color: #c62828;
+    }
+
+    .reason-content {
+      margin-top: 7px;
+      color: #555;
+      font-size: 10px;
+      line-height: 1.5;
+      white-space: pre-wrap;
+      word-break: break-word;
+    }
+
+    .reason-meta {
+      margin-top: 7px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 7px;
+      color: #888;
+      font-size: 9px;
+    }
+
+    .reason-evidence-button {
+      height: 30px;
+      padding: 0 10px;
+      margin-top: 8px;
+      border: 1px solid #ddd;
+      border-radius: 9px;
+      background: #fff;
+      color: #444;
+      font-size: 9px;
+      font-weight: 800;
+      cursor: pointer;
+    }
+
     .logout-button {
       width: 100%;
       height: 44px;
@@ -1559,6 +1711,7 @@ async function loginStudent() {
     loadStudySummary();
     loadScoreSummary();
     loadPenaltySummary();
+    loadReasonList();
 
   }
 
@@ -2791,6 +2944,299 @@ async function restoreSession() {
 
 
 /* =========================
+   사유서
+========================= */
+
+document
+  .getElementById(
+    "reasonSubmitButton"
+  )
+  .addEventListener(
+    "click",
+    submitReason
+  );
+
+
+async function submitReason() {
+  const button =
+    document.getElementById(
+      "reasonSubmitButton"
+    );
+
+  const reasonDate =
+    document.getElementById(
+      "reasonDate"
+    ).value.trim();
+
+  const reasonContent =
+    document.getElementById(
+      "reasonContent"
+    ).value.trim();
+
+  if (!reasonDate) {
+    alert(
+      "사유일을 선택해주세요."
+    );
+    return;
+  }
+
+  if (!reasonContent) {
+    alert(
+      "사유내용을 입력해주세요."
+    );
+    return;
+  }
+
+  button.disabled = true;
+  button.textContent =
+    "제출 중...";
+
+  try {
+    const result =
+      await apiRequest(
+        "studentReasonSubmit",
+        {
+          sessionToken:
+            sessionToken,
+          reasonDate:
+            reasonDate,
+          reasonContent:
+            reasonContent
+        }
+      );
+
+    if (
+      !result ||
+      !result.success
+    ) {
+      alert(
+        result &&
+        result.message
+          ? result.message
+          : "사유서 제출에 실패했습니다."
+      );
+      return;
+    }
+
+    document
+      .getElementById(
+        "reasonContent"
+      ).value = "";
+
+    alert(
+      result.notice ||
+      "사유서 제출이 완료되었습니다.\n" +
+      "증빙서류는 당일 제출하지 않으셔도 됩니다.\n" +
+      "준비되는 대로 학생포털에서 증빙서류를 추가 제출해주세요."
+    );
+
+    await loadReasonList();
+
+  } catch (error) {
+    alert(
+      error &&
+      error.message
+        ? error.message
+        : "사유서 제출 중 오류가 발생했습니다."
+    );
+  } finally {
+    button.disabled = false;
+    button.textContent =
+      "사유서 제출";
+  }
+}
+
+
+async function loadReasonList() {
+  try {
+    const result =
+      await apiRequest(
+        "studentReasonList",
+        {
+          sessionToken:
+            sessionToken
+        }
+      );
+
+    if (
+      !result ||
+      !result.success
+    ) {
+      handleSessionError(result);
+      return null;
+    }
+
+    renderReasonList(result.rows || []);
+
+    localStorage.setItem(
+      "studentPortalReasonList",
+      JSON.stringify(
+        result.rows || []
+      )
+    );
+
+    return result;
+
+  } catch (error) {
+    console.log(
+      "사유서 내역 조회 오류",
+      error
+    );
+    return null;
+  }
+}
+
+
+function renderReasonList(rows) {
+  const list =
+    document.getElementById(
+      "reasonList"
+    );
+
+  if (!list) {
+    return;
+  }
+
+  if (
+    !rows ||
+    !rows.length
+  ) {
+    list.className =
+      "placeholder";
+    list.textContent =
+      "신청내역이 없습니다.";
+    return;
+  }
+
+  list.className = "";
+
+  list.innerHTML =
+    rows.map(function(row) {
+      const status =
+        row.status || "접수";
+
+      let statusClass = "";
+
+      if (status === "승인") {
+        statusClass =
+          " approved";
+      } else if (
+        status === "반려"
+      ) {
+        statusClass =
+          " rejected";
+      }
+
+      const evidenceText =
+        row.evidenceUrl
+          ? "증빙 제출완료"
+          : "증빙 미제출";
+
+      return (
+        '<div class="reason-item">' +
+
+          '<div class="reason-item-head">' +
+            '<div class="reason-date">' +
+              escapeHtml(
+                row.reasonDate || "-"
+              ) +
+            '</div>' +
+
+            '<div class="reason-status' +
+              statusClass +
+            '">' +
+              escapeHtml(status) +
+            '</div>' +
+          '</div>' +
+
+          '<div class="reason-content">' +
+            escapeHtml(
+              row.reasonContent || ""
+            ) +
+          '</div>' +
+
+          '<div class="reason-meta">' +
+            '<span>' +
+              escapeHtml(
+                evidenceText
+              ) +
+            '</span>' +
+
+            (
+              row.submittedAt
+                ? '<span>신청 ' +
+                  escapeHtml(
+                    row.submittedAt
+                  ) +
+                  '</span>'
+                : ''
+            ) +
+          '</div>' +
+
+          (
+            row.evidenceUrl
+              ? '<button class="reason-evidence-button" type="button" ' +
+                'onclick="window.open(\'' +
+                escapeJsSingleQuote_(
+                  row.evidenceUrl
+                ) +
+                '\', \'_blank\')">' +
+                '증빙서류 보기' +
+                '</button>'
+              : '<button class="reason-evidence-button" type="button" ' +
+                'onclick="prepareReasonEvidence(\'' +
+                escapeJsSingleQuote_(
+                  row.applicationId || ""
+                ) +
+                '\')">' +
+                '증빙서류 첨부' +
+                '</button>'
+          ) +
+
+        '</div>'
+      );
+    }).join("");
+}
+
+
+function prepareReasonEvidence(
+  applicationId
+) {
+  alert(
+    "증빙서류는 추후 제출할 수 있습니다.\n" +
+    "다음 단계에서 파일 업로드 기능을 연결합니다."
+  );
+}
+
+
+function escapeJsSingleQuote_(
+  value
+) {
+  return String(
+    value == null
+      ? ""
+      : value
+  )
+    .replace(
+      /\\/g,
+      "\\\\"
+    )
+    .replace(
+      /'/g,
+      "\\'"
+    )
+    .replace(
+      /\r/g,
+      ""
+    )
+    .replace(
+      /\n/g,
+      "\\n"
+    );
+}
+
+
+/* =========================
    로그아웃
 ========================= */
 
@@ -2829,6 +3275,10 @@ function logout() {
 
   localStorage.removeItem(
     "studentPortalScore"
+  );
+
+  localStorage.removeItem(
+    "studentPortalReasonList"
   );
 
 

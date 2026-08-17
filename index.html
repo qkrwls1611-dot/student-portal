@@ -991,21 +991,23 @@ async function loginStudent() {
 
     showDashboard();
 
-    // 로그인 응답에 포함된 기본 학생정보는 즉시 표시
+    // 로그인 응답에 학생정보가 있으면 즉시 표시
     if (result.student) {
       renderStudentData(
         result.student
       );
-    }
 
-    if (result.student) {
       localStorage.setItem(
         "studentPortalStudent",
         JSON.stringify(result.student)
       );
+    } else {
+      // 로그인 응답에 학생정보가 없더라도
+      // studentData API로 다시 불러와 내 정보가 비지 않게 처리
+      loadStudentData();
     }
 
-    // QR과 공부시간은 화면을 먼저 보여준 뒤 비동기로 각각 불러옵니다.
+    // 나머지 데이터는 화면을 먼저 보여준 뒤 비동기로 불러옵니다.
     loadQr();
     loadStudySummary();
     loadScoreSummary();

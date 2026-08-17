@@ -302,6 +302,297 @@
       color: #222;
     }
 
+
+    .score-scroll-hint {
+      margin: -3px 0 10px;
+      color: #999;
+      font-size: 10px;
+      line-height: 1.5;
+    }
+
+    .score-scroll {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      max-height: 430px;
+      overflow-y: auto;
+      overflow-x: hidden;
+      padding: 2px 5px 8px 2px;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .score-scroll::-webkit-scrollbar {
+      width: 4px;
+    }
+
+    .score-scroll::-webkit-scrollbar-thumb {
+      background: #ddd;
+      border-radius: 99px;
+    }
+
+    .score-mini-card {
+      flex: 0 0 auto;
+      width: 100%;
+      padding: 13px;
+      border: 1px solid #eee;
+      border-radius: 14px;
+      background: #fff;
+      cursor: pointer;
+      transition: transform .15s ease, box-shadow .15s ease;
+    }
+
+    .score-mini-card:active {
+      transform: scale(.985);
+    }
+
+    .score-mini-head {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 8px;
+    }
+
+    .score-mini-title {
+      font-size: 13px;
+      font-weight: 900;
+    }
+
+    .score-mini-date {
+      margin-top: 3px;
+      color: #999;
+      font-size: 9px;
+    }
+
+    .score-mini-rank {
+      color: #e53935;
+      font-size: 11px;
+      font-weight: 900;
+      white-space: nowrap;
+    }
+
+    .mini-chart {
+      margin-top: 11px;
+    }
+
+    .mini-chart-row {
+      display: grid;
+      grid-template-columns: 50px 1fr 28px;
+      align-items: center;
+      gap: 6px;
+      margin: 7px 0;
+      font-size: 9px;
+    }
+
+    .mini-chart-name {
+      color: #666;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .mini-chart-bars {
+      position: relative;
+      height: 11px;
+      border-radius: 999px;
+      background: #f0f1f4;
+      overflow: hidden;
+    }
+
+    .mini-bar-average {
+      position: absolute;
+      left: 0;
+      top: 0;
+      height: 100%;
+      background: #d9dce3;
+      border-radius: 999px;
+    }
+
+    .mini-bar-mine {
+      position: absolute;
+      left: 0;
+      top: 3px;
+      height: 5px;
+      background: #e53935;
+      border-radius: 999px;
+    }
+
+    .mini-chart-score {
+      text-align: right;
+      font-weight: 900;
+    }
+
+    .score-mini-footer {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 10px;
+      padding-top: 9px;
+      border-top: 1px dashed #e5e5e5;
+      color: #666;
+      font-size: 10px;
+    }
+
+    .score-modal {
+      position: fixed;
+      inset: 0;
+      z-index: 9999;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 18px;
+    }
+
+    .score-modal-backdrop {
+      position: absolute;
+      inset: 0;
+      background: rgba(0,0,0,.48);
+    }
+
+    .score-modal-panel {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      max-width: 520px;
+      max-height: 86vh;
+      overflow-y: auto;
+      padding: 22px 18px 18px;
+      border-radius: 20px;
+      background: #fff;
+      box-shadow: 0 18px 60px rgba(0,0,0,.25);
+    }
+
+    .score-modal-close {
+      position: absolute;
+      right: 12px;
+      top: 10px;
+      width: 34px;
+      height: 34px;
+      padding: 0;
+      border: 0;
+      border-radius: 50%;
+      background: #f2f3f5;
+      color: #333;
+      font-size: 23px;
+      line-height: 34px;
+      cursor: pointer;
+    }
+
+    .score-modal-title {
+      padding-right: 38px;
+      font-size: 19px;
+      font-weight: 900;
+    }
+
+    .score-modal-date {
+      margin-top: 4px;
+      color: #999;
+      font-size: 11px;
+    }
+
+    .score-modal-rank {
+      margin-top: 12px;
+      color: #e53935;
+      font-size: 14px;
+      font-weight: 900;
+    }
+
+    .score-detail-chart {
+      margin-top: 18px;
+    }
+
+    .score-detail-row {
+      margin: 15px 0;
+    }
+
+    .score-detail-labels {
+      display: flex;
+      justify-content: space-between;
+      gap: 8px;
+      margin-bottom: 6px;
+      font-size: 12px;
+    }
+
+    .score-detail-name {
+      font-weight: 800;
+    }
+
+    .score-detail-values {
+      color: #777;
+      font-size: 11px;
+    }
+
+    .score-detail-bars {
+      position: relative;
+      height: 22px;
+      border-radius: 999px;
+      background: #f0f1f4;
+      overflow: hidden;
+    }
+
+    .score-detail-average {
+      position: absolute;
+      left: 0;
+      top: 0;
+      height: 100%;
+      background: #d9dce3;
+      border-radius: 999px;
+    }
+
+    .score-detail-mine {
+      position: absolute;
+      left: 0;
+      top: 7px;
+      height: 8px;
+      background: #e53935;
+      border-radius: 999px;
+    }
+
+    .score-legend {
+      display: flex;
+      gap: 14px;
+      margin-top: 12px;
+      color: #777;
+      font-size: 10px;
+    }
+
+    .legend-dot {
+      display: inline-block;
+      width: 9px;
+      height: 9px;
+      margin-right: 4px;
+      border-radius: 50%;
+      vertical-align: -1px;
+      background: #d9dce3;
+    }
+
+    .legend-dot.mine {
+      background: #e53935;
+    }
+
+    .score-modal-summary {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 8px;
+      margin-top: 18px;
+    }
+
+    .score-modal-summary-box {
+      padding: 12px;
+      border-radius: 12px;
+      background: #f7f8fb;
+      text-align: center;
+    }
+
+    .score-modal-summary-label {
+      color: #777;
+      font-size: 10px;
+    }
+
+    .score-modal-summary-value {
+      margin-top: 4px;
+      font-size: 16px;
+      font-weight: 900;
+    }
+
     .qr-card {
       text-align: center;
     }
@@ -1273,15 +1564,23 @@ function renderScoreData(result) {
   if (!scores.length) {
     list.className =
       "placeholder";
+
     list.textContent =
       "등록된 시험성적이 없습니다.";
+
     return;
   }
 
-  list.className = "";
+  list.className =
+    "score-scroll";
+
+  window.studentScoreCache = {
+    scores: scores,
+    subjects: subjects
+  };
 
   list.innerHTML =
-    scores.map(function(row) {
+    scores.map(function(row, index) {
       const rankText =
         row.rank && row.participants
           ? row.rank +
@@ -1291,45 +1590,54 @@ function renderScoreData(result) {
           : "-";
 
       return (
-        '<div class="score-item">' +
-          '<div class="score-head">' +
+        '<div class="score-mini-card" ' +
+        'onclick="openScoreModal(' +
+        index +
+        ')">' +
+
+          '<div class="score-mini-head">' +
             '<div>' +
-              '<div class="score-exam">' +
+              '<div class="score-mini-title">' +
                 escapeHtml(
                   row.examName || "-"
                 ) +
               '</div>' +
-              '<div class="score-date">' +
+              '<div class="score-mini-date">' +
                 escapeHtml(
                   row.examDate || ""
                 ) +
               '</div>' +
             '</div>' +
-            '<div class="score-rank">' +
+
+            '<div class="score-mini-rank">' +
               escapeHtml(rankText) +
             '</div>' +
           '</div>' +
 
-          '<div class="score-subjects">' +
-            scoreSubjectHtml_(
+          '<div class="mini-chart">' +
+            miniScoreBar_(
               "국어",
-              row.korean
+              row.korean,
+              averageOf_(row, "korean")
             ) +
-            scoreSubjectHtml_(
+            miniScoreBar_(
               "영어",
-              row.english
+              row.english,
+              averageOf_(row, "english")
             ) +
-            scoreSubjectHtml_(
+            miniScoreBar_(
               subjects.major1 || "전공1",
-              row.major1
+              row.major1,
+              averageOf_(row, "major1")
             ) +
-            scoreSubjectHtml_(
+            miniScoreBar_(
               subjects.major2 || "전공2",
-              row.major2
+              row.major2,
+              averageOf_(row, "major2")
             ) +
           '</div>' +
 
-          '<div class="score-summary">' +
+          '<div class="score-mini-footer">' +
             '<span>총점 <strong>' +
               escapeHtml(
                 row.total || "-"
@@ -1341,28 +1649,262 @@ function renderScoreData(result) {
               ) +
             '</strong></span>' +
           '</div>' +
+
         '</div>'
       );
     }).join("");
 }
 
 
-function scoreSubjectHtml_(name, score) {
+function averageOf_(row, key) {
+  if (
+    !row ||
+    !row.subjectAverages
+  ) {
+    return null;
+  }
+
+  return row.subjectAverages[key];
+}
+
+
+function scorePercent_(value) {
+  const number =
+    Number(value);
+
+  if (
+    !Number.isFinite(number)
+  ) {
+    return 0;
+  }
+
+  return Math.max(
+    0,
+    Math.min(
+      100,
+      number
+    )
+  );
+}
+
+
+function miniScoreBar_(
+  name,
+  mine,
+  average
+) {
+  const minePercent =
+    scorePercent_(mine);
+
+  const averagePercent =
+    scorePercent_(average);
+
   return (
-    '<div class="score-subject">' +
-      '<span class="score-subject-name">' +
+    '<div class="mini-chart-row">' +
+      '<div class="mini-chart-name">' +
         escapeHtml(name) +
-      '</span>' +
-      '<span class="score-subject-value">' +
+      '</div>' +
+
+      '<div class="mini-chart-bars">' +
+        '<div class="mini-bar-average" ' +
+          'style="width:' +
+          averagePercent +
+          '%"></div>' +
+        '<div class="mini-bar-mine" ' +
+          'style="width:' +
+          minePercent +
+          '%"></div>' +
+      '</div>' +
+
+      '<div class="mini-chart-score">' +
         escapeHtml(
-          score === "" ||
-          score == null
+          mine === "" ||
+          mine == null
             ? "-"
-            : score
+            : mine
         ) +
-      '</span>' +
+      '</div>' +
     '</div>'
   );
+}
+
+
+function openScoreModal(index) {
+  const cache =
+    window.studentScoreCache;
+
+  if (
+    !cache ||
+    !cache.scores ||
+    !cache.scores[index]
+  ) {
+    return;
+  }
+
+  const row =
+    cache.scores[index];
+
+  const subjects =
+    cache.subjects || {
+      major1: "전공1",
+      major2: "전공2"
+    };
+
+  const rankText =
+    row.rank && row.participants
+      ? row.rank +
+        "위 / " +
+        row.participants +
+        "명"
+      : "-";
+
+  const content =
+    document.getElementById(
+      "scoreModalContent"
+    );
+
+  content.innerHTML =
+    '<div class="score-modal-title">' +
+      escapeHtml(
+        row.examName || "-"
+      ) +
+    '</div>' +
+
+    '<div class="score-modal-date">' +
+      escapeHtml(
+        row.examDate || ""
+      ) +
+    '</div>' +
+
+    '<div class="score-modal-rank">' +
+      escapeHtml(rankText) +
+    '</div>' +
+
+    '<div class="score-detail-chart">' +
+      detailScoreBar_(
+        "국어",
+        row.korean,
+        averageOf_(row, "korean")
+      ) +
+      detailScoreBar_(
+        "영어",
+        row.english,
+        averageOf_(row, "english")
+      ) +
+      detailScoreBar_(
+        subjects.major1 || "전공1",
+        row.major1,
+        averageOf_(row, "major1")
+      ) +
+      detailScoreBar_(
+        subjects.major2 || "전공2",
+        row.major2,
+        averageOf_(row, "major2")
+      ) +
+    '</div>' +
+
+    '<div class="score-legend">' +
+      '<span><span class="legend-dot mine"></span>나의 점수</span>' +
+      '<span><span class="legend-dot"></span>평균 점수</span>' +
+    '</div>' +
+
+    '<div class="score-modal-summary">' +
+      '<div class="score-modal-summary-box">' +
+        '<div class="score-modal-summary-label">총점</div>' +
+        '<div class="score-modal-summary-value">' +
+          escapeHtml(
+            row.total || "-"
+          ) +
+        '</div>' +
+      '</div>' +
+
+      '<div class="score-modal-summary-box">' +
+        '<div class="score-modal-summary-label">평균</div>' +
+        '<div class="score-modal-summary-value">' +
+          escapeHtml(
+            row.average || "-"
+          ) +
+        '</div>' +
+      '</div>' +
+    '</div>';
+
+  document
+    .getElementById(
+      "scoreModal"
+    )
+    .classList
+    .remove("hidden");
+
+  document.body.style.overflow =
+    "hidden";
+}
+
+
+function detailScoreBar_(
+  name,
+  mine,
+  average
+) {
+  const minePercent =
+    scorePercent_(mine);
+
+  const averagePercent =
+    scorePercent_(average);
+
+  const averageText =
+    average === null ||
+    average === undefined ||
+    average === ""
+      ? "-"
+      : average;
+
+  return (
+    '<div class="score-detail-row">' +
+      '<div class="score-detail-labels">' +
+        '<span class="score-detail-name">' +
+          escapeHtml(name) +
+        '</span>' +
+
+        '<span class="score-detail-values">' +
+          '나 ' +
+          escapeHtml(
+            mine === "" ||
+            mine == null
+              ? "-"
+              : mine
+          ) +
+          ' · 평균 ' +
+          escapeHtml(
+            averageText
+          ) +
+        '</span>' +
+      '</div>' +
+
+      '<div class="score-detail-bars">' +
+        '<div class="score-detail-average" ' +
+          'style="width:' +
+          averagePercent +
+          '%"></div>' +
+        '<div class="score-detail-mine" ' +
+          'style="width:' +
+          minePercent +
+          '%"></div>' +
+      '</div>' +
+    '</div>'
+  );
+}
+
+
+function closeScoreModal() {
+  document
+    .getElementById(
+      "scoreModal"
+    )
+    .classList
+    .add("hidden");
+
+  document.body.style.overflow =
+    "";
 }
 
 

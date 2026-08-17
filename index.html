@@ -883,14 +883,11 @@ async function loginStudent() {
     localStorage.setItem(
       "studentPortalSession",
       JSON.stringify({
-        sessionToken:
-          sessionToken,
-
-        studentId:
-          studentId,
-
-        name:
-          result.name
+        sessionToken: sessionToken,
+        studentId: studentId,
+        name: result.name,
+        student: result.student || null,
+        study: result.study || null
       })
     );
 
@@ -901,6 +898,13 @@ async function loginStudent() {
     if (result.student) {
       renderStudentData(
         result.student
+      );
+    }
+
+    if (result.student) {
+      localStorage.setItem(
+        "studentPortalStudent",
+        JSON.stringify(result.student)
       );
     }
 
@@ -1305,9 +1309,7 @@ function showQrError(
 ========================= */
 
 async function restoreSession() {
-
   try {
-
     const saved =
       JSON.parse(
         localStorage.getItem(
@@ -1315,13 +1317,9 @@ async function restoreSession() {
         ) || "{}"
       );
 
-
-    if (
-      !saved.sessionToken
-    ) {
+    if (!saved.sessionToken) {
       return;
     }
-
 
     sessionToken =
       saved.sessionToken;
@@ -1329,26 +1327,73 @@ async function restoreSession() {
     studentId =
       saved.studentId || "";
 
-
+    // 1) 화면부터 즉시 표시
     showDashboard();
 
-    await Promise.all([
-      loadStudentData(),
-      loadStudySummary()
-    ]);
+    // 2) 이전에 저장한 학생정보를 즉시 표시
+    try {
+      const cachedStudent =
+        JSON.parse(
+          localStorage.getItem(
+            "studentPortalStudent"
+          ) || "null"
+        );
 
+      if (cachedStudent) {
+        renderStudentData(
+          cachedStudent
+        );
+      } else if (saved.student) {
+        renderStudentData(
+          saved.student
+        );
+      }
+    } catch (e) {}
+
+    // 3) 이전 공부시간도 즉시 표시
+    try {
+      const cachedStudy =
+        JSON.parse(
+          localStorage.getItem(
+            "studentPortalStudy"
+          ) || "null"
+        );
+
+      if (cachedStudy) {
+        renderStudyData(
+          cachedStudy
+        );
+      } else if (saved.study) {
+        renderStudyData(
+          saved.study
+        );
+      }
+    } catch (e) {}
+
+    // 4) 서버 최신값은 뒤에서 갱신
+    loadStudentData()
+      .catch(function(error) {
+        console.log(
+          "학생정보 갱신 실패",
+          error
+        );
+      });
+
+    loadStudySummary()
+      .catch(function(error) {
+        console.log(
+          "공부시간 갱신 실패",
+          error
+        );
+      });
+
+    // QR은 로그인 세션 확인 후 서버에서 새로 생성
     loadQr();
 
-  }
-
-  catch (error) {
-
+  } catch (error) {
     logout();
-
   }
-
 }
-
 
 
 /* =========================
@@ -1374,6 +1419,14 @@ function logout() {
 
   localStorage.removeItem(
     "studentPortalSession"
+  );
+
+  localStorage.removeItem(
+    "studentPortalStudent"
+  );
+
+  localStorage.removeItem(
+    "studentPortalStudy"
   );
 
 

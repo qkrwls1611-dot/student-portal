@@ -192,6 +192,38 @@
       font-size: 12px;
     }
 
+    .penalty-item {
+      padding: 11px 0;
+      border-bottom: 1px solid #eee;
+      text-align: left;
+    }
+
+    .penalty-item:last-child {
+      border-bottom: 0;
+    }
+
+    .penalty-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      font-size: 12px;
+      font-weight: 800;
+    }
+
+    .penalty-score {
+      color: #e53935;
+      font-weight: 900;
+      white-space: nowrap;
+    }
+
+    .penalty-reason {
+      margin-top: 5px;
+      color: #666;
+      font-size: 11px;
+      line-height: 1.5;
+    }
+
     .qr-card {
       text-align: center;
     }
@@ -551,30 +583,18 @@
     </section>
 
 
-    <!-- 벌점 -->
-
+<!-- 벌점 -->
     <section class="card">
-
-      <div class="card-title">
-        ⚠️ 현재 벌점
-      </div>
+      <div class="card-title">⚠️ 현재 벌점</div>
 
       <div class="row">
-
-        <span class="label">
-          누적 벌점
-        </span>
-
-        <span class="value red">
-          계산 예정
-        </span>
-
+        <span class="label">누적 벌점</span>
+        <span id="penaltyTotal" class="value red">0점</span>
       </div>
 
-      <div class="placeholder">
-        다음 단계에서 벌점 내역을 연결합니다.
+      <div id="penaltyList" class="placeholder">
+        벌점 내역을 불러오는 중입니다.
       </div>
-
     </section>
 
 
@@ -911,6 +931,7 @@ async function loginStudent() {
     // QR과 공부시간은 화면을 먼저 보여준 뒤 비동기로 각각 불러옵니다.
     loadQr();
     loadStudySummary();
+    loadPenaltySummary();
 
   }
 
@@ -1099,6 +1120,120 @@ async function loadStudySummary() {
 
   renderStudyData(result);
   return result;
+}
+
+
+/* =========================
+   벌점
+========================= */
+
+async function loadPenaltySummary() {
+  try {
+    const result =
+      await apiRequest(
+        "studentPenalty",
+        {
+          sessionToken:
+            sessionToken
+        }
+      );
+
+    if (
+      !result ||
+      !result.success
+    ) {
+      handleSessionError(result);
+      return null;
+    }
+
+    renderPenaltyData(result);
+
+    localStorage.setItem(
+      "studentPortalPenalty",
+      JSON.stringify(result)
+    );
+
+    return result;
+
+  } catch (error) {
+    console.log(
+      "벌점 조회 오류",
+      error
+    );
+
+    return null;
+  }
+}
+
+
+function renderPenaltyData(result) {
+  if (!result) {
+    return;
+  }
+
+  const total =
+    Number(result.totalPenalty || 0);
+
+  setText(
+    "penaltyTotal",
+    total + "점"
+  );
+
+  const list =
+    document.getElementById(
+      "penaltyList"
+    );
+
+  if (!list) {
+    return;
+  }
+
+  const rows =
+    Array.isArray(result.rows)
+      ? result.rows
+      : [];
+
+  if (!rows.length) {
+    list.className =
+      "placeholder";
+
+    list.textContent =
+      "벌점 내역이 없습니다.";
+
+    return;
+  }
+
+  list.className = "";
+
+  list.innerHTML =
+    rows.map(function(row) {
+      return (
+        '<div class="penalty-item">' +
+          '<div class="penalty-top">' +
+            '<span>' +
+              escapeHtml(
+                row.date || "-"
+              ) +
+              ' · ' +
+              escapeHtml(
+                row.type || "-"
+              ) +
+            '</span>' +
+            '<span class="penalty-score">' +
+              escapeHtml(
+                String(row.penalty || 0)
+              ) +
+              '점' +
+            '</span>' +
+          '</div>' +
+          '<div class="penalty-reason">' +
+            escapeHtml(
+              row.reason || ""
+            ) +
+          '</div>' +
+        '</div>'
+      );
+    }).join("");
 }
 
 
@@ -1370,7 +1505,23 @@ async function restoreSession() {
       }
     } catch (e) {}
 
-    // 4) 서버 최신값은 뒤에서 갱신
+    // 4) 이전 벌점도 즉시 표시
+    try {
+      const cachedPenalty =
+        JSON.parse(
+          localStorage.getItem(
+            "studentPortalPenalty"
+          ) || "null"
+        );
+
+      if (cachedPenalty) {
+        renderPenaltyData(
+          cachedPenalty
+        );
+      }
+    } catch (e) {}
+
+    // 5) 서버 최신값은 뒤에서 갱신
     loadStudentData()
       .catch(function(error) {
         console.log(
@@ -1383,6 +1534,14 @@ async function restoreSession() {
       .catch(function(error) {
         console.log(
           "공부시간 갱신 실패",
+          error
+        );
+      });
+
+    loadPenaltySummary()
+      .catch(function(error) {
+        console.log(
+          "벌점 갱신 실패",
           error
         );
       });
@@ -1427,6 +1586,10 @@ function logout() {
 
   localStorage.removeItem(
     "studentPortalStudy"
+  );
+
+  localStorage.removeItem(
+    "studentPortalPenalty"
   );
 
 

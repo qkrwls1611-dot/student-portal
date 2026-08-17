@@ -649,6 +649,265 @@
       line-height: 1.5;
     }
 
+
+    /* =========================
+       시험성적 대시보드
+    ========================= */
+
+    .score-dashboard-card {
+      overflow: hidden;
+    }
+
+    .score-overview {
+      margin-top: 6px;
+    }
+
+    .score-chart-box {
+      padding: 14px 12px 10px;
+      border: 1px solid #eceef2;
+      border-radius: 15px;
+      background: #fff;
+    }
+
+    .score-chart-title {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      margin-bottom: 8px;
+    }
+
+    .score-chart-title strong {
+      font-size: 13px;
+    }
+
+    .score-chart-unit {
+      color: #999;
+      font-size: 10px;
+    }
+
+    .score-legend-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      justify-content: flex-end;
+      margin-bottom: 6px;
+      font-size: 9px;
+      color: #666;
+    }
+
+    .score-legend-item {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .score-legend-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      display: inline-block;
+    }
+
+    .score-legend-dot.mine {
+      background: #ef3b36;
+    }
+
+    .score-legend-dot.top20 {
+      background: #3478d4;
+    }
+
+    .score-legend-dot.all {
+      background: #9a9a9a;
+    }
+
+    .score-svg-wrap {
+      width: 100%;
+      overflow-x: auto;
+      overflow-y: hidden;
+      padding-bottom: 2px;
+    }
+
+    .score-svg {
+      display: block;
+      width: 100%;
+      min-width: 520px;
+      height: 245px;
+    }
+
+    .score-summary-strip {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      margin-top: 10px;
+      border: 1px solid #eceef2;
+      border-radius: 13px;
+      overflow: hidden;
+    }
+
+    .score-summary-cell {
+      padding: 10px 6px;
+      text-align: center;
+      border-right: 1px solid #eceef2;
+      background: #fafbfc;
+    }
+
+    .score-summary-cell:last-child {
+      border-right: 0;
+    }
+
+    .score-summary-label {
+      color: #777;
+      font-size: 9px;
+      line-height: 1.35;
+    }
+
+    .score-summary-value {
+      margin-top: 4px;
+      font-size: 14px;
+      font-weight: 900;
+    }
+
+    .score-test-title {
+      margin: 16px 0 8px;
+      font-size: 13px;
+      font-weight: 900;
+    }
+
+    .score-test-list {
+      display: flex;
+      flex-direction: column;
+      gap: 9px;
+      max-height: 470px;
+      overflow-y: auto;
+      padding-right: 3px;
+    }
+
+    .score-test-list::-webkit-scrollbar {
+      width: 4px;
+    }
+
+    .score-test-list::-webkit-scrollbar-thumb {
+      background: #ddd;
+      border-radius: 99px;
+    }
+
+    .score-test-card {
+      border: 1px solid #eceef2;
+      border-radius: 14px;
+      background: #fff;
+      overflow: hidden;
+    }
+
+    .score-test-head {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 10px;
+      padding: 12px 12px 9px;
+      border-bottom: 1px solid #f0f1f3;
+    }
+
+    .score-test-name {
+      font-size: 13px;
+      font-weight: 900;
+    }
+
+    .score-test-date {
+      margin-top: 3px;
+      color: #999;
+      font-size: 9px;
+    }
+
+    .score-test-rank {
+      color: #e53935;
+      font-size: 11px;
+      font-weight: 900;
+      white-space: nowrap;
+    }
+
+    .score-test-grid {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+    }
+
+    .score-metric {
+      padding: 11px 6px;
+      text-align: center;
+      border-right: 1px solid #f0f1f3;
+    }
+
+    .score-metric:last-child {
+      border-right: 0;
+    }
+
+    .score-metric-label {
+      color: #666;
+      font-size: 9px;
+      font-weight: 700;
+      line-height: 1.35;
+    }
+
+    .score-metric-value {
+      margin-top: 5px;
+      font-size: 13px;
+      font-weight: 900;
+      white-space: nowrap;
+    }
+
+    .score-metric-sub {
+      margin-top: 3px;
+      color: #777;
+      font-size: 8px;
+    }
+
+    .score-rank-percent {
+      margin-top: 5px;
+      color: #777;
+      font-size: 8px;
+    }
+
+    .score-note {
+      margin-top: 9px;
+      padding: 8px 10px;
+      border-radius: 10px;
+      background: #f7f8fb;
+      color: #777;
+      font-size: 9px;
+      line-height: 1.45;
+    }
+
+    @media (max-width: 520px) {
+      .score-test-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .score-metric {
+        border-bottom: 1px solid #f0f1f3;
+      }
+
+      .score-metric:nth-child(2n) {
+        border-right: 0;
+      }
+
+      .score-metric:last-child {
+        grid-column: 1 / -1;
+        border-bottom: 0;
+      }
+
+      .score-summary-strip {
+        grid-template-columns: 1fr;
+      }
+
+      .score-summary-cell {
+        border-right: 0;
+        border-bottom: 1px solid #eceef2;
+      }
+
+      .score-summary-cell:last-child {
+        border-bottom: 0;
+      }
+    }
+
     .logout-button {
       width: 100%;
       height: 44px;
@@ -938,15 +1197,13 @@
 
 
     <!-- 성적 -->
+    <section class="card score-dashboard-card">
+      <div class="card-title">📊 최근 시험 성적</div>
 
-    <section class="card">
-
-      <div class="card-title">
-        📊 최근 시험 성적
-      </div>
-
-      <div id="scoreList" class="placeholder">
-        성적을 불러오는 중입니다.
+      <div id="scoreDashboard">
+        <div class="placeholder">
+          성적을 불러오는 중입니다.
+        </div>
       </div>
     </section>
 
@@ -1517,7 +1774,7 @@ async function loadScoreSummary() {
       return null;
     }
 
-    renderScoreData(result);
+    renderScoreDashboard(result);
 
     localStorage.setItem(
       "studentPortalScore",
@@ -1531,18 +1788,24 @@ async function loadScoreSummary() {
       "시험성적 조회 오류",
       error
     );
+
     return null;
   }
 }
 
 
 function renderScoreData(result) {
-  const list =
+  renderScoreDashboard(result);
+}
+
+
+function renderScoreDashboard(result) {
+  const root =
     document.getElementById(
-      "scoreList"
+      "scoreDashboard"
     );
 
-  if (!list) {
+  if (!root) {
     return;
   }
 
@@ -1550,6 +1813,12 @@ function renderScoreData(result) {
     result &&
     Array.isArray(result.scores)
       ? result.scores
+      : [];
+
+  const trend =
+    result &&
+    Array.isArray(result.trend)
+      ? result.trend
       : [];
 
   const subjects =
@@ -1561,350 +1830,508 @@ function renderScoreData(result) {
           major2: "전공2"
         };
 
-  if (!scores.length) {
-    list.className =
-      "placeholder";
+  const summary =
+    result &&
+    result.summary
+      ? result.summary
+      : {};
 
-    list.textContent =
-      "등록된 시험성적이 없습니다.";
+  if (!scores.length) {
+    root.innerHTML =
+      '<div class="placeholder">' +
+      '등록된 시험성적이 없습니다.' +
+      '</div>';
 
     return;
   }
 
-  list.className =
-    "score-scroll";
+  root.innerHTML =
+    '<div class="score-overview">' +
 
-  window.studentScoreCache = {
-    scores: scores,
-    subjects: subjects
-  };
+      '<div class="score-chart-box">' +
+        '<div class="score-chart-title">' +
+          '<strong>총점 추이</strong>' +
+          '<span class="score-chart-unit">단위: 점</span>' +
+        '</div>' +
 
-  list.innerHTML =
-    scores.map(function(row, index) {
-      const rankText =
-        row.rank && row.participants
-          ? row.rank +
-            "위 / " +
-            row.participants +
-            "명"
-          : "-";
+        '<div class="score-legend-row">' +
+          '<span class="score-legend-item">' +
+            '<span class="score-legend-dot mine"></span>' +
+            '나의 점수' +
+          '</span>' +
+          '<span class="score-legend-item">' +
+            '<span class="score-legend-dot top20"></span>' +
+            '상위 20% 평균' +
+          '</span>' +
+          '<span class="score-legend-item">' +
+            '<span class="score-legend-dot all"></span>' +
+            '전체 평균' +
+          '</span>' +
+        '</div>' +
 
-      return (
-        '<div class="score-mini-card" ' +
-        'onclick="openScoreModal(' +
-        index +
-        ')">' +
+        '<div class="score-svg-wrap">' +
+          buildTotalTrendSvg_(trend) +
+        '</div>' +
 
-          '<div class="score-mini-head">' +
-            '<div>' +
-              '<div class="score-mini-title">' +
-                escapeHtml(
-                  row.examName || "-"
-                ) +
-              '</div>' +
-              '<div class="score-mini-date">' +
-                escapeHtml(
-                  row.examDate || ""
-                ) +
-              '</div>' +
-            '</div>' +
+        '<div class="score-summary-strip">' +
+          scoreSummaryCell_(
+            '나의 평균',
+            summary.myAverageTotal,
+            '/ 400'
+          ) +
+          scoreSummaryCell_(
+            '상위 20% 평균',
+            summary.top20AverageTotal,
+            '/ 400'
+          ) +
+          scoreSummaryCell_(
+            '전체 평균',
+            summary.overallAverageTotal,
+            '/ 400'
+          ) +
+        '</div>' +
+      '</div>' +
 
-            '<div class="score-mini-rank">' +
-              escapeHtml(rankText) +
-            '</div>' +
-          '</div>' +
+      '<div class="score-test-title">시험별 성적</div>' +
 
-          '<div class="mini-chart">' +
-            miniScoreBar_(
-              "국어",
-              row.korean,
-              averageOf_(row, "korean")
-            ) +
-            miniScoreBar_(
-              "영어",
-              row.english,
-              averageOf_(row, "english")
-            ) +
-            miniScoreBar_(
-              subjects.major1 || "전공1",
-              row.major1,
-              averageOf_(row, "major1")
-            ) +
-            miniScoreBar_(
-              subjects.major2 || "전공2",
-              row.major2,
-              averageOf_(row, "major2")
-            ) +
-          '</div>' +
+      '<div class="score-test-list">' +
+        scores.map(function(row) {
+          return buildScoreTestCard_(
+            row,
+            subjects
+          );
+        }).join('') +
+      '</div>' +
 
-          '<div class="score-mini-footer">' +
-            '<span>총점 <strong>' +
-              escapeHtml(
-                row.total || "-"
-              ) +
-            '</strong></span>' +
-            '<span>평균 <strong>' +
-              escapeHtml(
-                row.average || "-"
-              ) +
-            '</strong></span>' +
-          '</div>' +
+      '<div class="score-note">' +
+        '※ 상위 20%: 3개 반 전체 응시자 기준 상위 20%의 총점 평균입니다.' +
+      '</div>' +
 
-        '</div>'
-      );
-    }).join("");
+    '</div>';
 }
 
 
-function averageOf_(row, key) {
-  if (
-    !row ||
-    !row.subjectAverages
-  ) {
-    return null;
-  }
-
-  return row.subjectAverages[key];
-}
-
-
-function scorePercent_(value) {
-  const number =
-    Number(value);
-
-  if (
-    !Number.isFinite(number)
-  ) {
-    return 0;
-  }
-
-  return Math.max(
-    0,
-    Math.min(
-      100,
-      number
-    )
-  );
-}
-
-
-function miniScoreBar_(
-  name,
-  mine,
-  average
+function scoreSummaryCell_(
+  label,
+  value,
+  suffix
 ) {
-  const minePercent =
-    scorePercent_(mine);
-
-  const averagePercent =
-    scorePercent_(average);
-
   return (
-    '<div class="mini-chart-row">' +
-      '<div class="mini-chart-name">' +
-        escapeHtml(name) +
+    '<div class="score-summary-cell">' +
+      '<div class="score-summary-label">' +
+        escapeHtml(label) +
       '</div>' +
-
-      '<div class="mini-chart-bars">' +
-        '<div class="mini-bar-average" ' +
-          'style="width:' +
-          averagePercent +
-          '%"></div>' +
-        '<div class="mini-bar-mine" ' +
-          'style="width:' +
-          minePercent +
-          '%"></div>' +
-      '</div>' +
-
-      '<div class="mini-chart-score">' +
+      '<div class="score-summary-value">' +
         escapeHtml(
-          mine === "" ||
-          mine == null
-            ? "-"
-            : mine
+          value == null
+            ? '-'
+            : String(value)
         ) +
+        ' <span style="font-size:10px;font-weight:700;color:#777">' +
+        escapeHtml(suffix || '') +
+        '</span>' +
       '</div>' +
     '</div>'
   );
 }
 
 
-function openScoreModal(index) {
-  const cache =
-    window.studentScoreCache;
+function buildScoreTestCard_(
+  row,
+  subjects
+) {
+  const participants =
+    row.participants || '';
 
-  if (
-    !cache ||
-    !cache.scores ||
-    !cache.scores[index]
-  ) {
-    return;
-  }
-
-  const row =
-    cache.scores[index];
-
-  const subjects =
-    cache.subjects || {
-      major1: "전공1",
-      major2: "전공2"
-    };
+  const rank =
+    row.rank || '';
 
   const rankText =
-    row.rank && row.participants
-      ? row.rank +
-        "위 / " +
-        row.participants +
-        "명"
-      : "-";
+    rank && participants
+      ? rank +
+        '위 / ' +
+        participants +
+        '명'
+      : '-';
 
-  const content =
-    document.getElementById(
-      "scoreModalContent"
-    );
-
-  content.innerHTML =
-    '<div class="score-modal-title">' +
-      escapeHtml(
-        row.examName || "-"
-      ) +
-    '</div>' +
-
-    '<div class="score-modal-date">' +
-      escapeHtml(
-        row.examDate || ""
-      ) +
-    '</div>' +
-
-    '<div class="score-modal-rank">' +
-      escapeHtml(rankText) +
-    '</div>' +
-
-    '<div class="score-detail-chart">' +
-      detailScoreBar_(
-        "국어",
-        row.korean,
-        averageOf_(row, "korean")
-      ) +
-      detailScoreBar_(
-        "영어",
-        row.english,
-        averageOf_(row, "english")
-      ) +
-      detailScoreBar_(
-        subjects.major1 || "전공1",
-        row.major1,
-        averageOf_(row, "major1")
-      ) +
-      detailScoreBar_(
-        subjects.major2 || "전공2",
-        row.major2,
-        averageOf_(row, "major2")
-      ) +
-    '</div>' +
-
-    '<div class="score-legend">' +
-      '<span><span class="legend-dot mine"></span>나의 점수</span>' +
-      '<span><span class="legend-dot"></span>평균 점수</span>' +
-    '</div>' +
-
-    '<div class="score-modal-summary">' +
-      '<div class="score-modal-summary-box">' +
-        '<div class="score-modal-summary-label">총점</div>' +
-        '<div class="score-modal-summary-value">' +
-          escapeHtml(
-            row.total || "-"
-          ) +
-        '</div>' +
-      '</div>' +
-
-      '<div class="score-modal-summary-box">' +
-        '<div class="score-modal-summary-label">평균</div>' +
-        '<div class="score-modal-summary-value">' +
-          escapeHtml(
-            row.average || "-"
-          ) +
-        '</div>' +
-      '</div>' +
-    '</div>';
-
-  document
-    .getElementById(
-      "scoreModal"
-    )
-    .classList
-    .remove("hidden");
-
-  document.body.style.overflow =
-    "hidden";
-}
-
-
-function detailScoreBar_(
-  name,
-  mine,
-  average
-) {
-  const minePercent =
-    scorePercent_(mine);
-
-  const averagePercent =
-    scorePercent_(average);
-
-  const averageText =
-    average === null ||
-    average === undefined ||
-    average === ""
-      ? "-"
-      : average;
+  const percentileText =
+    row.percentile == null ||
+    row.percentile === ''
+      ? ''
+      : '상위 ' +
+        row.percentile +
+        '%';
 
   return (
-    '<div class="score-detail-row">' +
-      '<div class="score-detail-labels">' +
-        '<span class="score-detail-name">' +
-          escapeHtml(name) +
-        '</span>' +
+    '<div class="score-test-card">' +
 
-        '<span class="score-detail-values">' +
-          '나 ' +
-          escapeHtml(
-            mine === "" ||
-            mine == null
-              ? "-"
-              : mine
+      '<div class="score-test-head">' +
+        '<div>' +
+          '<div class="score-test-name">' +
+            escapeHtml(
+              row.examName || '-'
+            ) +
+          '</div>' +
+          '<div class="score-test-date">' +
+            escapeHtml(
+              row.examDate || ''
+            ) +
+          '</div>' +
+        '</div>' +
+
+        '<div style="text-align:right">' +
+          '<div class="score-test-rank">' +
+            escapeHtml(rankText) +
+          '</div>' +
+          (
+            percentileText
+              ? '<div class="score-rank-percent">' +
+                escapeHtml(
+                  percentileText
+                ) +
+                '</div>'
+              : ''
           ) +
-          ' · 평균 ' +
-          escapeHtml(
-            averageText
-          ) +
-        '</span>' +
+        '</div>' +
       '</div>' +
 
-      '<div class="score-detail-bars">' +
-        '<div class="score-detail-average" ' +
-          'style="width:' +
-          averagePercent +
-          '%"></div>' +
-        '<div class="score-detail-mine" ' +
-          'style="width:' +
-          minePercent +
-          '%"></div>' +
+      '<div class="score-test-grid">' +
+
+        scoreMetric_(
+          '총점',
+          row.total,
+          '400',
+          row.average
+            ? '평균 ' +
+              row.average
+            : ''
+        ) +
+
+        scoreMetric_(
+          '국어',
+          row.korean,
+          '100',
+          ''
+        ) +
+
+        scoreMetric_(
+          '영어',
+          row.english,
+          '100',
+          ''
+        ) +
+
+        scoreMetric_(
+          subjects.major1 || '전공1',
+          row.major1,
+          '100',
+          ''
+        ) +
+
+        scoreMetric_(
+          subjects.major2 || '전공2',
+          row.major2,
+          '100',
+          ''
+        ) +
+
       '</div>' +
+
     '</div>'
   );
 }
 
 
-function closeScoreModal() {
-  document
-    .getElementById(
-      "scoreModal"
-    )
-    .classList
-    .add("hidden");
+function scoreMetric_(
+  label,
+  value,
+  maxValue,
+  subText
+) {
+  return (
+    '<div class="score-metric">' +
+      '<div class="score-metric-label">' +
+        escapeHtml(label) +
+      '</div>' +
 
-  document.body.style.overflow =
-    "";
+      '<div class="score-metric-value">' +
+        escapeHtml(
+          value == null ||
+          value === ''
+            ? '-'
+            : String(value)
+        ) +
+        ' <span style="font-size:9px;font-weight:700;color:#888">/ ' +
+          escapeHtml(
+            maxValue || ''
+          ) +
+        '</span>' +
+      '</div>' +
+
+      (
+        subText
+          ? '<div class="score-metric-sub">' +
+            escapeHtml(
+              subText
+            ) +
+            '</div>'
+          : ''
+      ) +
+
+    '</div>'
+  );
+}
+
+
+function buildTotalTrendSvg_(trend) {
+  if (
+    !trend ||
+    !trend.length
+  ) {
+    return (
+      '<div class="placeholder">' +
+      '그래프 데이터가 없습니다.' +
+      '</div>'
+    );
+  }
+
+  const width = 620;
+  const height = 245;
+
+  const left = 38;
+  const right = 18;
+  const top = 18;
+  const bottom = 52;
+
+  const plotWidth =
+    width -
+    left -
+    right;
+
+  const plotHeight =
+    height -
+    top -
+    bottom;
+
+  const maxY = 400;
+  const minY = 0;
+
+  const n =
+    trend.length;
+
+  function xAt(index) {
+    if (n === 1) {
+      return (
+        left +
+        plotWidth / 2
+      );
+    }
+
+    return (
+      left +
+      plotWidth *
+      index /
+      (n - 1)
+    );
+  }
+
+  function yAt(value) {
+    const number =
+      Number(value);
+
+    const safe =
+      Number.isFinite(number)
+        ? Math.max(
+            minY,
+            Math.min(
+              maxY,
+              number
+            )
+          )
+        : 0;
+
+    return (
+      top +
+      plotHeight *
+      (maxY - safe) /
+      (maxY - minY)
+    );
+  }
+
+  function linePoints(key) {
+    return trend
+      .map(function(item, index) {
+        const value =
+          item[key];
+
+        if (
+          value == null ||
+          value === ''
+        ) {
+          return null;
+        }
+
+        return (
+          xAt(index) +
+          ',' +
+          yAt(value)
+        );
+      })
+      .filter(Boolean)
+      .join(' ');
+  }
+
+  function circles(key, color) {
+    return trend
+      .map(function(item, index) {
+        const value =
+          item[key];
+
+        if (
+          value == null ||
+          value === ''
+        ) {
+          return '';
+        }
+
+        const x =
+          xAt(index);
+
+        const y =
+          yAt(value);
+
+        return (
+          '<circle cx="' +
+          x +
+          '" cy="' +
+          y +
+          '" r="4" fill="' +
+          color +
+          '"></circle>' +
+
+          '<text x="' +
+          x +
+          '" y="' +
+          (y - 8) +
+          '" text-anchor="middle" ' +
+          'font-size="9" font-weight="700" fill="' +
+          color +
+          '">' +
+          escapeHtml(
+            String(value)
+          ) +
+          '</text>'
+        );
+      })
+      .join('');
+  }
+
+  const gridValues =
+    [0, 100, 200, 300, 400];
+
+  const grid =
+    gridValues
+      .map(function(value) {
+        const y =
+          yAt(value);
+
+        return (
+          '<line x1="' +
+          left +
+          '" y1="' +
+          y +
+          '" x2="' +
+          (width - right) +
+          '" y2="' +
+          y +
+          '" stroke="#eceef2" stroke-width="1"></line>' +
+
+          '<text x="' +
+          (left - 9) +
+          '" y="' +
+          (y + 3) +
+          '" text-anchor="end" font-size="9" fill="#999">' +
+          value +
+          '</text>'
+        );
+      })
+      .join('');
+
+  const labels =
+    trend
+      .map(function(item, index) {
+        const x =
+          xAt(index);
+
+        return (
+          '<text x="' +
+          x +
+          '" y="' +
+          (height - 27) +
+          '" text-anchor="middle" ' +
+          'font-size="9" font-weight="700" fill="#444">' +
+          escapeHtml(
+            item.examName || ''
+          ) +
+          '</text>' +
+
+          '<text x="' +
+          x +
+          '" y="' +
+          (height - 12) +
+          '" text-anchor="middle" font-size="8" fill="#999">' +
+          escapeHtml(
+            item.examDate || ''
+          ) +
+          '</text>'
+        );
+      })
+      .join('');
+
+  return (
+    '<svg class="score-svg" ' +
+      'viewBox="0 0 ' +
+      width +
+      ' ' +
+      height +
+      '" xmlns="http://www.w3.org/2000/svg">' +
+
+      grid +
+
+      '<polyline fill="none" stroke="#9a9a9a" stroke-width="2" ' +
+        'points="' +
+        linePoints('overallAverage') +
+        '"></polyline>' +
+
+      '<polyline fill="none" stroke="#3478d4" stroke-width="2" ' +
+        'points="' +
+        linePoints('top20Average') +
+        '"></polyline>' +
+
+      '<polyline fill="none" stroke="#ef3b36" stroke-width="2.4" ' +
+        'points="' +
+        linePoints('myTotal') +
+        '"></polyline>' +
+
+      circles(
+        'overallAverage',
+        '#9a9a9a'
+      ) +
+
+      circles(
+        'top20Average',
+        '#3478d4'
+      ) +
+
+      circles(
+        'myTotal',
+        '#ef3b36'
+      ) +
+
+      labels +
+
+    '</svg>'
+  );
 }
 
 

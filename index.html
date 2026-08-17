@@ -897,35 +897,16 @@ async function loginStudent() {
 
     showDashboard();
 
+    // 로그인 응답에 포함된 기본 학생정보는 즉시 표시
     if (result.student) {
-      renderStudentData(result.student);
+      renderStudentData(
+        result.student
+      );
     }
 
-    if (result.study) {
-      renderStudyData(result.study);
-    }
-
-    if (result.qr) {
-      renderQr(result.qr);
-    }
-
-    const followups = [];
-
-    if (!result.student) {
-      followups.push(loadStudentData());
-    }
-
-    if (!result.study) {
-      followups.push(loadStudySummary());
-    }
-
-    if (!result.qr) {
-      loadQr();
-    }
-
-    if (followups.length) {
-      await Promise.all(followups);
-    }
+    // QR과 공부시간은 화면을 먼저 보여준 뒤 비동기로 각각 불러옵니다.
+    loadQr();
+    loadStudySummary();
 
   }
 
@@ -999,9 +980,10 @@ function showDashboard() {
 
 async function loadDashboard() {
 
-  await loadStudentData();
-
-  await loadStudySummary();
+  await Promise.all([
+    loadStudentData(),
+    loadStudySummary()
+  ]);
 
   loadQr();
 

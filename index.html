@@ -1469,6 +1469,13 @@
       >
         신청내역을 불러오는 중입니다.
       </div>
+
+      <input
+        id="reasonEvidenceFile"
+        type="file"
+        accept=".jpg,.jpeg,.png,.pdf,image/jpeg,image/png,application/pdf"
+        style="display:none;"
+      >
     </section>
 
 
@@ -3532,12 +3539,178 @@ function renderReasonList(rows) {
 }
 
 
+let pendingReasonEvidenceId = "";
+
+
 function prepareReasonEvidence(
   applicationId
 ) {
-  alert(
-    "증빙서류는 추후 제출할 수 있습니다.\n" +
-    "다음 단계에서 파일 업로드 기능을 연결합니다."
+  pendingReasonEvidenceId =
+    applicationId || "";
+
+  const input =
+    document.getElementById(
+      "reasonEvidenceFile"
+    );
+
+  input.value = "";
+  input.click();
+}
+
+
+document
+  .getElementById(
+    "reasonEvidenceFile"
+  )
+  .addEventListener(
+    "change",
+    uploadReasonEvidence
+  );
+
+
+async function uploadReasonEvidence(event) {
+  const file =
+    event.target.files &&
+    event.target.files[0];
+
+  if (
+    !file ||
+    !pendingReasonEvidenceId
+  ) {
+    return;
+  }
+
+
+  const allowedTypes = [
+    "image/jpeg",
+    "image/png",
+    "application/pdf"
+  ];
+
+
+  if (
+    allowedTypes.indexOf(
+      file.type
+    ) === -1
+  ) {
+    alert(
+      "JPG, PNG, PDF 파일만 제출할 수 있습니다."
+    );
+    return;
+  }
+
+
+  if (
+    file.size >
+    10 * 1024 * 1024
+  ) {
+    alert(
+      "증빙서류는 10MB 이하만 제출할 수 있습니다."
+    );
+    return;
+  }
+
+
+  try {
+    const base64Data =
+      await fileToBase64_(
+        file
+      );
+
+    const result =
+      await apiRequest(
+        "studentReasonEvidenceUpload",
+        {
+          sessionToken:
+            sessionToken,
+
+          applicationId:
+            pendingReasonEvidenceId,
+
+          fileName:
+            file.name,
+
+          mimeType:
+            file.type,
+
+          base64Data:
+            base64Data
+        }
+      );
+
+
+    if (
+      !result ||
+      !result.success
+    ) {
+      alert(
+        result &&
+        result.message
+          ? result.message
+          : "증빙서류 제출에 실패했습니다."
+      );
+      return;
+    }
+
+
+    alert(
+      "증빙서류가 제출되었습니다."
+    );
+
+    pendingReasonEvidenceId = "";
+
+    await loadReasonList();
+
+
+  } catch (error) {
+    alert(
+      error &&
+      error.message
+        ? error.message
+        : "증빙서류 제출 중 오류가 발생했습니다."
+    );
+  }
+}
+
+
+function fileToBase64_(file) {
+  return new Promise(
+    function(resolve, reject) {
+      const reader =
+        new FileReader();
+
+      reader.onload =
+        function() {
+          const result =
+            String(
+              reader.result || ""
+            );
+
+          const commaIndex =
+            result.indexOf(",");
+
+          resolve(
+            commaIndex >= 0
+              ? result.substring(
+                  commaIndex + 1
+                )
+              : result
+          );
+        };
+
+      reader.onerror =
+        function() {
+          reject(
+            new Error(
+              "파일을 읽을 수 없습니다."
+            )
+          );
+        };
+
+      reader.readAsDataURL(
+        file
+      );
+    }
   );
 }
 

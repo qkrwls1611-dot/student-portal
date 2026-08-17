@@ -897,7 +897,35 @@ async function loginStudent() {
 
     showDashboard();
 
-    await loadDashboard();
+    if (result.student) {
+      renderStudentData(result.student);
+    }
+
+    if (result.study) {
+      renderStudyData(result.study);
+    }
+
+    if (result.qr) {
+      renderQr(result.qr);
+    }
+
+    const followups = [];
+
+    if (!result.student) {
+      followups.push(loadStudentData());
+    }
+
+    if (!result.study) {
+      followups.push(loadStudySummary());
+    }
+
+    if (!result.qr) {
+      loadQr();
+    }
+
+    if (followups.length) {
+      await Promise.all(followups);
+    }
 
   }
 
@@ -985,6 +1013,51 @@ async function loadDashboard() {
    학생 기본정보
 ========================= */
 
+function renderStudentData(student) {
+  if (!student) return;
+
+  setText("dashboardStudentName", student.name);
+  setText("className", student.className);
+  setText("classroom", student.classroom);
+  setText("job", student.job);
+  setText("seat", student.seat ? student.seat + "번" : "-");
+  setText("studyPeriod", student.studyPeriod);
+  setText("endDate", student.endDate);
+  setText("greeting", student.name + "님, 안녕하세요.");
+}
+
+
+function renderStudyData(result) {
+  if (!result) return;
+
+  const today = result.today || {};
+
+  setText("todayEntryTime", today.entryTime || "-");
+  setText("todayExitTime", today.exitTime || "-");
+  setText("todayStudyTime", today.studyText || "0시간 0분");
+  setText("monthStudyTime", result.monthText || "0시간 0분");
+  setText("todayStatus", today.status || "미입실");
+
+  if (result.rank === "-" || !result.rankTotal) {
+    setText("studyRank", "-");
+  } else {
+    setText(
+      "studyRank",
+      result.rank + "위 / " + result.rankTotal + "명"
+    );
+  }
+
+  if (Number(result.rank) === 1) {
+    setText("firstPlaceDifference", "현재 1위");
+  } else {
+    setText(
+      "firstPlaceDifference",
+      result.firstPlaceDifferenceText || "0시간 0분"
+    );
+  }
+}
+
+
 async function loadStudentData() {
 
   const result =
@@ -1010,53 +1083,7 @@ async function loadStudentData() {
   }
 
 
-  const student =
-    result.student;
-
-
-  setText(
-    "dashboardStudentName",
-    student.name
-  );
-
-  setText(
-    "className",
-    student.className
-  );
-
-  setText(
-    "classroom",
-    student.classroom
-  );
-
-  setText(
-    "job",
-    student.job
-  );
-
-  setText(
-    "seat",
-    student.seat
-      ? student.seat +
-        "번"
-      : "-"
-  );
-
-  setText(
-    "studyPeriod",
-    student.studyPeriod
-  );
-
-  setText(
-    "endDate",
-    student.endDate
-  );
-
-  setText(
-    "greeting",
-    student.name +
-    "님, 안녕하세요."
-  );
+  renderStudentData(result.student);
 
 }
 
@@ -1067,7 +1094,6 @@ async function loadStudentData() {
 ========================= */
 
 async function loadStudySummary() {
-
   const result =
     await apiRequest(
       "studentStudy",
@@ -1077,100 +1103,17 @@ async function loadStudySummary() {
       }
     );
 
-
   if (
     !result ||
     !result.success
   ) {
-
-    handleSessionError(
-      result
-    );
-
-    return;
+    handleSessionError(result);
+    return null;
   }
 
-
-  const today =
-    result.today || {};
-
-
-  setText(
-    "todayEntryTime",
-    today.entryTime || "-"
-  );
-
-  setText(
-    "todayExitTime",
-    today.exitTime || "-"
-  );
-
-  setText(
-    "todayStudyTime",
-    today.studyText ||
-    "0시간 0분"
-  );
-
-  setText(
-    "monthStudyTime",
-    result.monthText ||
-    "0시간 0분"
-  );
-
-  setText(
-    "todayStatus",
-    today.status ||
-    "미입실"
-  );
-
-
-  if (
-    result.rank === "-" ||
-    !result.rankTotal
-  ) {
-
-    setText(
-      "studyRank",
-      "-"
-    );
-
-  } else {
-
-    setText(
-      "studyRank",
-      result.rank +
-      "위 / " +
-      result.rankTotal +
-      "명"
-    );
-
-  }
-
-
-  if (
-    Number(
-      result.rank
-    ) === 1
-  ) {
-
-    setText(
-      "firstPlaceDifference",
-      "현재 1위"
-    );
-
-  } else {
-
-    setText(
-      "firstPlaceDifference",
-      result
-        .firstPlaceDifferenceText ||
-      "0시간 0분"
-    );
-
-  }
-
+  renderStudyData(result);
+  return result;
 }
-
 
 
 /* =========================
@@ -1407,8 +1350,12 @@ async function restoreSession() {
 
     showDashboard();
 
+    await Promise.all([
+      loadStudentData(),
+      loadStudySummary()
+    ]);
 
-    await loadDashboard();
+    loadQr();
 
   }
 

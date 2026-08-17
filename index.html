@@ -1375,17 +1375,49 @@
 
 
     <!-- 사유서 -->
-
     <section class="card">
+      <div class="card-title">📝 사유서 신청</div>
 
-      <div class="card-title">
-        📝 사유서 신청
+      <div class="reason-form">
+        <label class="reason-label" for="reasonDate">사유일</label>
+        <input
+          id="reasonDate"
+          class="reason-input"
+          type="date"
+        >
+
+        <label class="reason-label" for="reasonContent">사유내용</label>
+        <textarea
+          id="reasonContent"
+          class="reason-textarea"
+          maxlength="1000"
+          placeholder="사유내용을 입력해주세요."
+        ></textarea>
+
+        <div class="reason-help">
+          증빙서류는 당일 제출하지 않아도 됩니다.
+          사유서 제출 후 준비되는 대로 추가 제출해주세요.
+        </div>
+
+        <button
+          id="reasonSubmitButton"
+          class="reason-submit-button"
+          type="button"
+        >
+          사유서 제출
+        </button>
       </div>
 
-      <div class="placeholder">
-        다음 단계에서 기존 사유서 기능을 연결합니다.
+      <div class="reason-list-title">
+        내 신청내역
       </div>
 
+      <div
+        id="reasonList"
+        class="placeholder"
+      >
+        신청내역을 불러오는 중입니다.
+      </div>
     </section>
 
 

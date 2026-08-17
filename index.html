@@ -3026,7 +3026,27 @@ async function restoreSession() {
       }
     } catch (e) {}
 
-    // 6) 서버 최신값은 뒤에서 갱신
+    // 6) 이전 사유서 신청내역도 즉시 표시
+    try {
+      const cachedReasons =
+        JSON.parse(
+          localStorage.getItem(
+            "studentPortalReasonList"
+          ) || "[]"
+        );
+
+      if (
+        Array.isArray(
+          cachedReasons
+        )
+      ) {
+        renderReasonList(
+          cachedReasons
+        );
+      }
+    } catch (e) {}
+
+    // 7) 서버 최신값은 뒤에서 갱신
     loadStudentData()
       .catch(function(error) {
         console.log(
@@ -3055,6 +3075,14 @@ async function restoreSession() {
       .catch(function(error) {
         console.log(
           "벌점 갱신 실패",
+          error
+        );
+      });
+
+    loadReasonList()
+      .catch(function(error) {
+        console.log(
+          "사유서 신청내역 갱신 실패",
           error
         );
       });

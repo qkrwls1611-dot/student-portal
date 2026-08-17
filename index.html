@@ -1386,6 +1386,35 @@
           type="date"
         >
 
+        <label class="reason-label" for="reasonType">사유유형</label>
+        <select
+          id="reasonType"
+          class="reason-input"
+          onchange="updateReasonPeriodVisibility()"
+        >
+          <option value="">선택해주세요</option>
+          <option value="지각">지각</option>
+          <option value="조퇴">조퇴</option>
+          <option value="결석">결석</option>
+        </select>
+
+        <div id="reasonPeriodWrap" style="display:none;">
+          <label class="reason-label" for="reasonPeriod">교시</label>
+          <select
+            id="reasonPeriod"
+            class="reason-input"
+          >
+            <option value="">선택해주세요</option>
+            <option value="1교시 (09:00~10:40)">1교시 · 09:00~10:40</option>
+            <option value="2교시 (11:00~12:50)">2교시 · 11:00~12:50</option>
+            <option value="3교시 (14:00~15:40)">3교시 · 14:00~15:40</option>
+            <option value="4교시 (16:00~17:40)">4교시 · 16:00~17:40</option>
+            <option value="5교시 (18:50~19:50)">5교시 · 18:50~19:50</option>
+            <option value="6교시 (20:00~21:00)">6교시 · 20:00~21:00</option>
+            <option value="7교시 (21:10~22:00)">7교시 · 21:10~22:00</option>
+          </select>
+        </div>
+
         <label class="reason-label" for="reasonContent">사유내용</label>
         <textarea
           id="reasonContent"
@@ -2989,6 +3018,35 @@ document
   );
 
 
+function updateReasonPeriodVisibility() {
+  const type =
+    document.getElementById(
+      "reasonType"
+    ).value;
+
+  const wrap =
+    document.getElementById(
+      "reasonPeriodWrap"
+    );
+
+  if (
+    type === "지각" ||
+    type === "조퇴"
+  ) {
+    wrap.style.display =
+      "block";
+  } else {
+    wrap.style.display =
+      "none";
+
+    document
+      .getElementById(
+        "reasonPeriod"
+      ).value = "";
+  }
+}
+
+
 async function submitReason() {
   const button =
     document.getElementById(
@@ -3000,6 +3058,16 @@ async function submitReason() {
       "reasonDate"
     ).value.trim();
 
+  const reasonType =
+    document.getElementById(
+      "reasonType"
+    ).value.trim();
+
+  const reasonPeriod =
+    document.getElementById(
+      "reasonPeriod"
+    ).value.trim();
+
   const reasonContent =
     document.getElementById(
       "reasonContent"
@@ -3008,6 +3076,24 @@ async function submitReason() {
   if (!reasonDate) {
     alert(
       "사유일을 선택해주세요."
+    );
+    return;
+  }
+
+  if (!reasonType) {
+    alert(
+      "사유유형을 선택해주세요."
+    );
+    return;
+  }
+
+  if (
+    (reasonType === "지각" ||
+     reasonType === "조퇴") &&
+    !reasonPeriod
+  ) {
+    alert(
+      "교시를 선택해주세요."
     );
     return;
   }
@@ -3032,6 +3118,10 @@ async function submitReason() {
             sessionToken,
           reasonDate:
             reasonDate,
+          reasonType:
+            reasonType,
+          period:
+            reasonPeriod,
           reasonContent:
             reasonContent
         }
@@ -3054,6 +3144,18 @@ async function submitReason() {
       .getElementById(
         "reasonContent"
       ).value = "";
+
+    document
+      .getElementById(
+        "reasonType"
+      ).value = "";
+
+    document
+      .getElementById(
+        "reasonPeriod"
+      ).value = "";
+
+    updateReasonPeriodVisibility();
 
     alert(
       result.notice ||
@@ -3182,6 +3284,24 @@ function renderReasonList(rows) {
           '</div>' +
 
           '<div class="reason-content">' +
+            '<strong>' +
+              escapeHtml(
+                row.reasonType || ""
+              ) +
+              (
+                row.period
+                  ? ' · ' +
+                    escapeHtml(
+                      row.period
+                    )
+                  : ''
+              ) +
+            '</strong>' +
+            (
+              row.reasonType
+                ? '<br>'
+                : ''
+            ) +
             escapeHtml(
               row.reasonContent || ""
             ) +

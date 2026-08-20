@@ -1582,6 +1582,87 @@
     }
     .legend-dot.top20{background:#3478d4;}
 
+
+    .score-chart-clickable{
+      cursor:pointer;
+      position:relative;
+      transition:transform .16s ease, box-shadow .16s ease;
+    }
+
+    .score-chart-clickable::after{
+      content:"클릭해서 크게 보기";
+      position:absolute;
+      right:12px;
+      bottom:10px;
+      padding:5px 8px;
+      border-radius:999px;
+      background:rgba(255,255,255,.92);
+      border:1px solid #e5e7eb;
+      color:#64748b;
+      font-size:8px;
+      font-weight:800;
+      pointer-events:none;
+    }
+
+    .score-chart-clickable:hover{
+      transform:translateY(-1px);
+      box-shadow:0 8px 22px rgba(15,23,42,.08);
+    }
+
+    .score-trend-modal-panel{
+      width:min(94vw, 760px);
+      max-height:90vh;
+      overflow:auto;
+      background:#fff;
+      border-radius:22px;
+      padding:22px 18px 20px;
+      position:relative;
+      box-shadow:0 24px 70px rgba(0,0,0,.25);
+    }
+
+    .score-trend-modal-title{
+      font-size:20px;
+      font-weight:900;
+      color:#111827;
+      margin-bottom:4px;
+    }
+
+    .score-trend-modal-sub{
+      font-size:10px;
+      color:#94a3b8;
+      margin-bottom:14px;
+    }
+
+    .score-trend-modal-chart{
+      border:1px solid #eceef2;
+      border-radius:16px;
+      padding:12px;
+      background:#fff;
+      overflow-x:auto;
+    }
+
+    .score-trend-modal-chart .score-svg{
+      width:100%;
+      min-width:620px;
+      height:auto;
+      display:block;
+    }
+
+    .score-trend-modal-summary{
+      margin-top:12px;
+    }
+
+    @media(max-width:620px){
+      .score-trend-modal-panel{
+        width:96vw;
+        padding:18px 12px 16px;
+      }
+
+      .score-trend-modal-chart .score-svg{
+        min-width:600px;
+      }
+    }
+
 </style>
 </head>
 
@@ -2683,7 +2764,7 @@ function renderScoreDashboard(result) {
     renderLatestScoreCard_(latest) +
 
     '<div class="score-section-title">최근 시험 성적 추이</div>' +
-    '<div class="score-chart-box">' +
+    '<div class="score-chart-box score-chart-clickable" onclick="openScoreTrendModal()">' +
       '<div class="score-chart-title">' +
         '<strong>총점 추이</strong>' +
         '<span class="score-chart-unit">400점 만점</span>' +
@@ -2721,6 +2802,7 @@ function renderScoreDashboard(result) {
     '</div>';
 
   window.latestScoreAnalysis_ = latest;
+  window.latestScoreResult_ = result;
 }
 
 
@@ -3286,6 +3368,320 @@ function renderScoreDistribution_(distribution) {
         );
       }).join("") +
     '</div>'
+  );
+}
+
+
+function openScoreTrendModal() {
+  const data =
+    window.latestScoreResult_ || null;
+
+  if (!data) return;
+
+  closeScoreTrendModal();
+
+  const trend =
+    Array.isArray(data.trend)
+      ? data.trend
+      : [];
+
+  const summary =
+    data.summary || {};
+
+  const modal =
+    document.createElement("div");
+
+  modal.id =
+    "scoreTrendModal";
+
+  modal.className =
+    "score-modal";
+
+  modal.innerHTML =
+    '<div class="score-modal-backdrop" onclick="closeScoreTrendModal()"></div>' +
+
+    '<div class="score-trend-modal-panel">' +
+      '<button class="score-modal-close" type="button" onclick="closeScoreTrendModal()">×</button>' +
+
+      '<div class="score-trend-modal-title">최근 시험 성적 추이</div>' +
+      '<div class="score-trend-modal-sub">총점 기준 · 내 점수 / 상위 20% 평균 / 전체 평균</div>' +
+
+      '<div class="score-legend-row" style="justify-content:flex-start;margin-bottom:10px;">' +
+        '<span class="score-legend-item"><i class="score-legend-dot mine"></i>내 점수</span>' +
+        '<span class="score-legend-item"><i class="score-legend-dot top20"></i>상위 20% 평균</span>' +
+        '<span class="score-legend-item"><i class="score-legend-dot all"></i>전체 평균</span>' +
+      '</div>' +
+
+      '<div class="score-trend-modal-chart">' +
+        renderScoreTrendSvgLarge_(trend) +
+      '</div>' +
+
+      '<div class="score-summary-strip score-trend-modal-summary">' +
+        renderScoreSummaryCell_("내 최근 평균", formatScoreValue_(summary.myAverageTotal)) +
+        renderScoreSummaryCell_("전체 평균", formatScoreValue_(summary.overallAverageTotal)) +
+        renderScoreSummaryCell_("상위 20% 평균", formatScoreValue_(summary.top20AverageTotal)) +
+      '</div>' +
+    '</div>';
+
+  document.body.appendChild(modal);
+}
+
+
+function closeScoreTrendModal() {
+  const modal =
+    document.getElementById(
+      "scoreTrendModal"
+    );
+
+  if (
+    modal &&
+    modal.parentNode
+  ) {
+    modal.parentNode.removeChild(
+      modal
+    );
+  }
+}
+
+
+function renderScoreTrendSvgLarge_(trend) {
+  if (
+    !Array.isArray(trend) ||
+    !trend.length
+  ) {
+    return (
+      '<div class="placeholder">' +
+        '성적 추이 데이터가 없습니다.' +
+      '</div>'
+    );
+  }
+
+  const width =
+    Math.max(
+      720,
+      trend.length * 135
+    );
+
+  const height = 420;
+  const left = 55;
+  const right = 30;
+  const top = 42;
+  const bottom = 76;
+  const plotWidth =
+    width - left - right;
+  const plotHeight =
+    height - top - bottom;
+
+  function xAt(index) {
+    if (trend.length <= 1) {
+      return left + plotWidth / 2;
+    }
+
+    return (
+      left +
+      plotWidth *
+      index /
+      (trend.length - 1)
+    );
+  }
+
+  function yAt(value) {
+    const num =
+      Number(value);
+
+    const safe =
+      Number.isFinite(num)
+        ? Math.max(
+            0,
+            Math.min(
+              400,
+              num
+            )
+          )
+        : 0;
+
+    return (
+      top +
+      plotHeight *
+      (1 - safe / 400)
+    );
+  }
+
+  function linePoints(key) {
+    return trend
+      .map(
+        function(item, index) {
+          const value =
+            Number(item[key]);
+
+          if (
+            !Number.isFinite(value)
+          ) {
+            return null;
+          }
+
+          return (
+            xAt(index) +
+            "," +
+            yAt(value)
+          );
+        }
+      )
+      .filter(Boolean)
+      .join(" ");
+  }
+
+  function circles(
+    key,
+    color
+  ) {
+    return trend
+      .map(
+        function(item, index) {
+          const value =
+            Number(item[key]);
+
+          if (
+            !Number.isFinite(value)
+          ) {
+            return "";
+          }
+
+          const x =
+            xAt(index);
+
+          const y =
+            yAt(value);
+
+          return (
+            '<circle cx="' +
+              x +
+              '" cy="' +
+              y +
+              '" r="6" fill="' +
+              color +
+            '"></circle>' +
+
+            '<text x="' +
+              x +
+              '" y="' +
+              (y - 12) +
+              '" text-anchor="middle" font-size="12" font-weight="900" fill="' +
+              color +
+            '">' +
+              escapeHtml(
+                formatScoreValue_(value)
+              ) +
+            '</text>'
+          );
+        }
+      )
+      .join("");
+  }
+
+  const gridValues =
+    [0,100,200,300,400];
+
+  const grid =
+    gridValues
+      .map(
+        function(value) {
+          const y =
+            yAt(value);
+
+          return (
+            '<line x1="' +
+              left +
+              '" y1="' +
+              y +
+              '" x2="' +
+              (width - right) +
+              '" y2="' +
+              y +
+              '" stroke="#eceef2" stroke-width="1"></line>' +
+
+            '<text x="' +
+              (left - 12) +
+              '" y="' +
+              (y + 4) +
+              '" text-anchor="end" font-size="11" fill="#999">' +
+              value +
+            '</text>'
+          );
+        }
+      )
+      .join("");
+
+  const labels =
+    trend
+      .map(
+        function(item, index) {
+          const x =
+            xAt(index);
+
+          return (
+            '<text x="' +
+              x +
+              '" y="' +
+              (height - 40) +
+              '" text-anchor="middle" font-size="10" font-weight="800" fill="#444">' +
+              escapeHtml(
+                item.examName || ""
+              ) +
+            '</text>' +
+
+            '<text x="' +
+              x +
+              '" y="' +
+              (height - 20) +
+              '" text-anchor="middle" font-size="9" fill="#999">' +
+              escapeHtml(
+                item.examDate || ""
+              ) +
+            '</text>'
+          );
+        }
+      )
+      .join("");
+
+  return (
+    '<svg class="score-svg" viewBox="0 0 ' +
+      width +
+      ' ' +
+      height +
+      '" xmlns="http://www.w3.org/2000/svg">' +
+
+      grid +
+
+      '<polyline fill="none" stroke="#9a9a9a" stroke-width="2.5" points="' +
+        linePoints("overallAverage") +
+      '"></polyline>' +
+
+      '<polyline fill="none" stroke="#3478d4" stroke-width="2.5" points="' +
+        linePoints("top20Average") +
+      '"></polyline>' +
+
+      '<polyline fill="none" stroke="#ef3b36" stroke-width="3" points="' +
+        linePoints("myTotal") +
+      '"></polyline>' +
+
+      circles(
+        "overallAverage",
+        "#9a9a9a"
+      ) +
+
+      circles(
+        "top20Average",
+        "#3478d4"
+      ) +
+
+      circles(
+        "myTotal",
+        "#ef3b36"
+      ) +
+
+      labels +
+    '</svg>'
   );
 }
 

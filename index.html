@@ -6,6 +6,7 @@
         content="width=device-width, initial-scale=1">
 
   <title>공단기 학생포털</title>
+  <!-- SCORE_AI_FIX_V2 -->
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 
@@ -2944,29 +2945,21 @@ function buildLatestFallback_(scores, subjects) {
   return {
     examDate: item.examDate || "",
     examName: item.examName || "최근 시험",
-    total:
-      item.total === undefined
-        ? null
-        : item.total,
+    total: item.total === undefined ? null : item.total,
     maxTotal: 400,
     rank: item.rank || null,
     participants: item.participants || null,
     percentile: item.percentile || null,
     overallAverage: item.overallAverage || null,
     top20Average: item.top20Average || null,
-
-    // 서버 latestAnalysis가 아직 반영되지 않은 경우에도
-    // 학생의 실제 4과목 점수/총점/평균/석차로 한줄평을 생성
-    aiComment:
-      buildClientScoreAiComment_(
-        fallbackSubjects,
-        item.total,
-        item.overallAverage,
-        item.percentile,
-        item.rank,
-        item.participants
-      ),
-
+    aiComment: buildClientScoreAiComment_(
+      fallbackSubjects,
+      item.total,
+      item.overallAverage,
+      item.percentile,
+      item.rank,
+      item.participants
+    ),
     subjects: fallbackSubjects,
     distribution: []
   };
@@ -2981,20 +2974,19 @@ function buildClientScoreAiComment_(
   rank,
   participants
 ) {
-  const valid =
-    (subjectList || [])
-      .map(function(item) {
-        return {
-          name: item.name || "과목",
-          score: Number(item.score)
-        };
-      })
-      .filter(function(item) {
-        return Number.isFinite(item.score);
-      })
-      .sort(function(a, b) {
-        return a.score - b.score;
-      });
+  const valid = (subjectList || [])
+    .map(function(item) {
+      return {
+        name: item.name || "과목",
+        score: Number(item.score)
+      };
+    })
+    .filter(function(item) {
+      return Number.isFinite(item.score);
+    })
+    .sort(function(a, b) {
+      return a.score - b.score;
+    });
 
   if (!valid.length) {
     return "최근 시험 결과를 바탕으로 취약 과목부터 차근차근 보완해보세요.";
@@ -3002,7 +2994,6 @@ function buildClientScoreAiComment_(
 
   const weakest = valid[0];
   const strongest = valid[valid.length - 1];
-
   const totalNum = Number(total);
   const avgNum = Number(overallAverage);
   const percentileNum = Number(percentile);
@@ -3010,92 +3001,53 @@ function buildClientScoreAiComment_(
   const participantNum = Number(participants);
 
   let rankText = "";
-
   if (
     Number.isFinite(rankNum) &&
     Number.isFinite(participantNum) &&
     participantNum > 0
   ) {
-    rankText =
-      "현재 직렬 " +
-      rankNum +
-      "위/" +
-      participantNum +
-      "명입니다. ";
+    rankText = "현재 직렬 " + rankNum + "위/" + participantNum + "명입니다. ";
   }
 
-  if (
-    Number.isFinite(percentileNum) &&
-    percentileNum <= 20
-  ) {
+  if (Number.isFinite(percentileNum) && percentileNum <= 20) {
     return (
       rankText +
-      strongest.name +
-      "이(가) 강점으로 나타나고 있으며, " +
-      weakest.name +
-      " " +
-      weakest.score +
-      "점이 가장 낮습니다. " +
-      weakest.name +
-      "의 오답 유형을 우선 보완하면 상위권 성적을 더 안정적으로 유지할 수 있습니다."
+      strongest.name + "이(가) 강점으로 나타나고 있으며, " +
+      weakest.name + " " + weakest.score + "점이 가장 낮습니다. " +
+      weakest.name + "의 오답 유형을 우선 보완하면 상위권 성적을 더 안정적으로 유지할 수 있습니다."
     );
   }
 
-  if (
-    Number.isFinite(totalNum) &&
-    Number.isFinite(avgNum)
-  ) {
-    const diff =
-      Math.round((totalNum - avgNum) * 10) / 10;
+  if (Number.isFinite(totalNum) && Number.isFinite(avgNum)) {
+    const diff = Math.round((totalNum - avgNum) * 10) / 10;
 
     if (diff >= 0) {
       return (
         rankText +
-        "총점이 전체 평균보다 " +
-        Math.abs(diff).toFixed(1).replace(/\.0$/, "") +
-        "점 높습니다. " +
-        strongest.name +
-        "은 강점으로 유지하고, 가장 낮은 " +
-        weakest.name +
-        "(" +
-        weakest.score +
-        "점)을 집중 보완하면 순위를 더 끌어올릴 수 있습니다."
+        "총점이 전체 평균보다 " + Math.abs(diff).toFixed(1).replace(/\.0$/, "") + "점 높습니다. " +
+        strongest.name + "은 강점으로 유지하고, 가장 낮은 " +
+        weakest.name + "(" + weakest.score + "점)을 집중 보완하면 순위를 더 끌어올릴 수 있습니다."
       );
     }
 
     return (
       rankText +
-      "총점이 전체 평균보다 " +
-      Math.abs(diff).toFixed(1).replace(/\.0$/, "") +
-      "점 낮습니다. " +
-      strongest.name +
-      "은 비교적 안정적이며, " +
-      weakest.name +
-      "(" +
-      weakest.score +
-      "점)을 우선 보완하는 것이 가장 효과적입니다."
+      "총점이 전체 평균보다 " + Math.abs(diff).toFixed(1).replace(/\.0$/, "") + "점 낮습니다. " +
+      strongest.name + "은 비교적 안정적이며, " +
+      weakest.name + "(" + weakest.score + "점)을 우선 보완하는 것이 가장 효과적입니다."
     );
   }
 
-  if (
-    strongest.score - weakest.score >= 20
-  ) {
+  if (strongest.score - weakest.score >= 20) {
     return (
-      strongest.name +
-      "은 강점으로 유지하고, " +
-      weakest.name +
-      "(" +
-      weakest.score +
-      "점)의 기본·기출 정확도를 우선 높여 과목 간 점수 편차를 줄여보세요."
+      strongest.name + "은 강점으로 유지하고, " +
+      weakest.name + "(" + weakest.score + "점)의 기본·기출 정확도를 우선 높여 과목 간 점수 편차를 줄여보세요."
     );
   }
 
   return (
     "4과목 점수가 비교적 고르게 형성되어 있습니다. 가장 낮은 " +
-    weakest.name +
-    "(" +
-    weakest.score +
-    "점)의 오답을 우선 정리하면 다음 시험에서 총점 상승을 기대할 수 있습니다."
+    weakest.name + "(" + weakest.score + "점)의 오답을 우선 정리하면 다음 시험에서 총점 상승을 기대할 수 있습니다."
   );
 }
 
@@ -3910,7 +3862,6 @@ async function restoreSession() {
         );
 
       if (cachedScore) {
-        // 예전 캐시라도 실제 점수를 이용해 새 AI 한줄평을 다시 생성해서 표시
         renderScoreData(
           cachedScore
         );

@@ -1608,6 +1608,9 @@
           <option value="조퇴">조퇴</option>
           <option value="외출">외출</option>
           <option value="결석">결석</option>
+          <option value="정기지각">정기지각</option>
+          <option value="정기조퇴">정기조퇴</option>
+          <option value="정기결석">정기결석</option>
         </select>
 
         <div id="reasonPeriodWrap" style="display:none;">
@@ -1639,6 +1642,25 @@
                 <option value="">종료 교시</option>
               </select>
             </div>
+          </div>
+        </div>
+
+        <div id="regularReasonWrap" style="display:none; margin-top:12px;">
+          <label class="reason-label">정기 사유 기간</label>
+          <div class="reason-period-grid">
+            <input id="regularStartDate" class="reason-input" type="date">
+            <input id="regularEndDate" class="reason-input" type="date">
+          </div>
+
+          <label class="reason-label" style="margin-top:12px;">반복 요일</label>
+          <div id="regularDaysWrap" style="display:flex; flex-wrap:wrap; gap:8px;">
+            <label><input type="checkbox" name="regularDay" value="월"> 월</label>
+            <label><input type="checkbox" name="regularDay" value="화"> 화</label>
+            <label><input type="checkbox" name="regularDay" value="수"> 수</label>
+            <label><input type="checkbox" name="regularDay" value="목"> 목</label>
+            <label><input type="checkbox" name="regularDay" value="금"> 금</label>
+            <label><input type="checkbox" name="regularDay" value="토"> 토</label>
+            <label><input type="checkbox" name="regularDay" value="일"> 일</label>
           </div>
         </div>
 
@@ -3485,7 +3507,19 @@ function updateReasonPeriodVisibility() {
     "종료 교시"
   );
 
-  if (
+  const regularWrap = document.getElementById("regularReasonWrap");
+  const isRegular = ["정기지각", "정기조퇴", "정기결석"].indexOf(type) !== -1;
+  regularWrap.style.display = isRegular ? "block" : "none";
+
+  if (type === "정기지각" || type === "정기조퇴") {
+    wrap.style.display = "block";
+    singleWrap.style.display = "block";
+    rangeWrap.style.display = "none";
+  } else if (type === "정기결석") {
+    wrap.style.display = "none";
+    singleWrap.style.display = "none";
+    rangeWrap.style.display = "none";
+  } else if (
     type === "지각" ||
     type === "외출"
   ) {
@@ -3559,10 +3593,15 @@ async function submitReason() {
       "reasonContent"
     ).value.trim();
 
-  if (!reasonDate) {
-    alert(
-      "사유일을 선택해주세요."
-    );
+  const regularStartDate = document.getElementById("regularStartDate").value.trim();
+  const regularEndDate = document.getElementById("regularEndDate").value.trim();
+  const regularDays = Array.from(document.querySelectorAll('input[name="regularDay"]:checked'))
+    .map(function(el){ return el.value; })
+    .join(",");
+  const isRegularReason = ["정기지각", "정기조퇴", "정기결석"].indexOf(reasonType) !== -1;
+
+  if (!isRegularReason && !reasonDate) {
+    alert("사유일을 선택해주세요.");
     return;
   }
 
@@ -3597,6 +3636,25 @@ async function submitReason() {
     return;
   }
 
+  if (isRegularReason) {
+    if (!regularStartDate || !regularEndDate) {
+      alert("정기 사유 시작일과 종료일을 선택해주세요.");
+      return;
+    }
+    if (regularStartDate > regularEndDate) {
+      alert("종료일은 시작일 이후로 선택해주세요.");
+      return;
+    }
+    if (!regularDays) {
+      alert("반복 요일을 하나 이상 선택해주세요.");
+      return;
+    }
+    if ((reasonType === "정기지각" || reasonType === "정기조퇴") && !reasonStartPeriod) {
+      alert(reasonType + " 교시를 선택해주세요.");
+      return;
+    }
+  }
+
   if (!reasonContent) {
     alert(
       "사유내용을 입력해주세요."
@@ -3620,15 +3678,21 @@ async function submitReason() {
           reasonType:
             reasonType,
           startPeriod:
-            reasonType === "조퇴"
+            (reasonType === "조퇴" || reasonType === "정기지각" || reasonType === "정기조퇴")
               ? reasonStartPeriod
               : reasonRangeStart,
           endPeriod:
-            reasonType === "조퇴"
+            (reasonType === "조퇴" || isRegularReason)
               ? ""
               : reasonRangeEnd,
           reasonContent:
-            reasonContent
+            reasonContent,
+          regularStartDate:
+            isRegularReason ? regularStartDate : "",
+          regularEndDate:
+            isRegularReason ? regularEndDate : "",
+          regularDays:
+            isRegularReason ? regularDays : ""
         }
       );
 
@@ -3669,6 +3733,10 @@ async function submitReason() {
       .getElementById(
         "reasonRangeEnd"
       ).value = "";
+
+    document.getElementById("regularStartDate").value = "";
+    document.getElementById("regularEndDate").value = "";
+    document.querySelectorAll('input[name="regularDay"]').forEach(function(el){ el.checked = false; });
 
     updateReasonPeriodVisibility();
 

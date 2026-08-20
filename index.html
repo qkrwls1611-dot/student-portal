@@ -4305,7 +4305,9 @@ async function submitCounseling() {
         "counselingContent"
       ).value = "";
 
-    await loadCounselingList();
+    // 접수 완료 화면은 즉시 보여주고,
+    // 신청내역 갱신은 뒤에서 실행해서 체감 대기시간을 줄입니다.
+    loadCounselingList();
 
   } catch (error) {
     alert(

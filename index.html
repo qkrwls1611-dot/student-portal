@@ -908,6 +908,295 @@
     }
 
 
+
+    /* =========================
+       시험성적 대시보드 V3
+    ========================= */
+
+    .latest-score-card {
+      padding: 16px;
+      border: 1px solid #eceef2;
+      border-radius: 16px;
+      background: linear-gradient(180deg, #fff 0%, #fffafa 100%);
+    }
+
+    .latest-score-head {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      align-items: flex-start;
+    }
+
+    .latest-score-kicker {
+      color: #e53935;
+      font-size: 10px;
+      font-weight: 900;
+    }
+
+    .latest-score-name {
+      margin-top: 4px;
+      font-size: 16px;
+      font-weight: 900;
+      line-height: 1.35;
+    }
+
+    .latest-score-date {
+      margin-top: 4px;
+      color: #999;
+      font-size: 10px;
+    }
+
+    .latest-score-total {
+      min-width: 82px;
+      text-align: right;
+    }
+
+    .latest-score-total strong {
+      display: block;
+      color: #e53935;
+      font-size: 25px;
+      line-height: 1;
+    }
+
+    .latest-score-total span {
+      color: #999;
+      font-size: 9px;
+    }
+
+    .latest-subject-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 7px;
+      margin-top: 15px;
+    }
+
+    .latest-subject-box {
+      padding: 10px 5px;
+      border-radius: 11px;
+      background: #f7f8fb;
+      text-align: center;
+    }
+
+    .latest-subject-name {
+      color: #666;
+      font-size: 9px;
+      font-weight: 800;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .latest-subject-score {
+      margin-top: 5px;
+      font-size: 17px;
+      font-weight: 900;
+    }
+
+    .latest-subject-avg {
+      margin-top: 3px;
+      color: #999;
+      font-size: 8px;
+    }
+
+    .latest-rank-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 7px;
+      margin-top: 10px;
+    }
+
+    .latest-rank-box {
+      padding: 9px 5px;
+      border: 1px solid #eee;
+      border-radius: 10px;
+      background: #fff;
+      text-align: center;
+    }
+
+    .latest-rank-label {
+      color: #888;
+      font-size: 8px;
+    }
+
+    .latest-rank-value {
+      margin-top: 3px;
+      font-size: 12px;
+      font-weight: 900;
+    }
+
+    .score-ai-box {
+      margin-top: 11px;
+      padding: 11px 12px;
+      border-radius: 11px;
+      background: #fff3f2;
+      color: #5f3b39;
+      font-size: 10px;
+      line-height: 1.55;
+    }
+
+    .score-ai-box strong {
+      display: block;
+      margin-bottom: 3px;
+      color: #e53935;
+      font-size: 10px;
+    }
+
+    .score-detail-button {
+      width: 100%;
+      height: 40px;
+      margin-top: 11px;
+      border: 0;
+      border-radius: 10px;
+      background: #e53935;
+      color: #fff;
+      font-size: 11px;
+      font-weight: 900;
+      cursor: pointer;
+    }
+
+    .score-section-title {
+      margin: 17px 0 8px;
+      font-size: 13px;
+      font-weight: 900;
+    }
+
+    .score-history-card {
+      border: 1px solid #eceef2;
+      border-radius: 13px;
+      overflow: hidden;
+      background: #fff;
+    }
+
+    .score-history-head {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      padding: 11px 12px 8px;
+      border-bottom: 1px solid #f0f1f3;
+    }
+
+    .score-history-name {
+      font-size: 12px;
+      font-weight: 900;
+      line-height: 1.35;
+    }
+
+    .score-history-date {
+      margin-top: 3px;
+      color: #999;
+      font-size: 8px;
+    }
+
+    .score-history-rank {
+      color: #e53935;
+      font-size: 10px;
+      font-weight: 900;
+      white-space: nowrap;
+    }
+
+    .score-history-grid {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+    }
+
+    .score-history-metric {
+      padding: 9px 3px;
+      text-align: center;
+      border-right: 1px solid #f0f1f3;
+    }
+
+    .score-history-metric:last-child {
+      border-right: 0;
+    }
+
+    .score-history-label {
+      color: #777;
+      font-size: 8px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .score-history-value {
+      margin-top: 4px;
+      font-size: 11px;
+      font-weight: 900;
+    }
+
+    .score-distribution {
+      display: flex;
+      align-items: flex-end;
+      gap: 5px;
+      height: 145px;
+      margin-top: 16px;
+      padding: 10px 4px 0;
+      border-bottom: 1px solid #ddd;
+    }
+
+    .score-dist-col {
+      flex: 1;
+      min-width: 0;
+      text-align: center;
+    }
+
+    .score-dist-count {
+      margin-bottom: 4px;
+      color: #777;
+      font-size: 8px;
+      font-weight: 800;
+    }
+
+    .score-dist-bar-wrap {
+      height: 95px;
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+    }
+
+    .score-dist-bar {
+      width: 70%;
+      min-height: 2px;
+      border-radius: 5px 5px 0 0;
+      background: #cfd3da;
+    }
+
+    .score-dist-col.mine .score-dist-bar {
+      background: #e53935;
+    }
+
+    .score-dist-label {
+      margin-top: 5px;
+      color: #777;
+      font-size: 7px;
+      line-height: 1.15;
+      word-break: keep-all;
+    }
+
+    .score-modal-ai {
+      margin-top: 15px;
+      padding: 12px;
+      border-radius: 12px;
+      background: #fff3f2;
+      color: #5f3b39;
+      font-size: 11px;
+      line-height: 1.55;
+    }
+
+    @media (max-width: 380px) {
+      .latest-subject-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .score-history-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .score-history-metric:last-child {
+        grid-column: 1 / -1;
+      }
+    }
+
+
     /* =========================
        사유서
     ========================= */
@@ -2336,429 +2625,666 @@ function renderScoreData(result) {
 
 function renderScoreDashboard(result) {
   const root =
-    document.getElementById(
-      "scoreDashboard"
-    );
+    document.getElementById("scoreDashboard");
 
-  if (!root) {
-    return;
-  }
+  if (!root) return;
 
   const scores =
-    result &&
-    Array.isArray(result.scores)
+    result && Array.isArray(result.scores)
       ? result.scores
       : [];
 
   const trend =
-    result &&
-    Array.isArray(result.trend)
+    result && Array.isArray(result.trend)
       ? result.trend
       : [];
 
   const subjects =
-    result &&
-    result.subjects
+    result && result.subjects
       ? result.subjects
-      : {
-          major1: "전공1",
-          major2: "전공2"
-        };
+      : { major1: "전공1", major2: "전공2" };
 
   const summary =
-    result &&
-    result.summary
+    result && result.summary
       ? result.summary
       : {};
 
+  const latest =
+    result && result.latestAnalysis
+      ? result.latestAnalysis
+      : buildLatestFallback_(scores, subjects);
+
   if (!scores.length) {
     root.innerHTML =
-      '<div class="placeholder">' +
-      '등록된 시험성적이 없습니다.' +
-      '</div>';
-
+      '<div class="placeholder">등록된 시험성적이 없습니다.</div>';
     return;
   }
 
+  const latestSubjects =
+    latest && Array.isArray(latest.subjects)
+      ? latest.subjects
+      : [];
+
   root.innerHTML =
-    '<div class="score-overview">' +
+    renderLatestScoreCard_(latest) +
 
-      '<div class="score-chart-box">' +
-        '<div class="score-chart-title">' +
-          '<strong>총점 추이</strong>' +
-          '<span class="score-chart-unit">단위: 점</span>' +
-        '</div>' +
-
-        '<div class="score-legend-row">' +
-          '<span class="score-legend-item">' +
-            '<span class="score-legend-dot mine"></span>' +
-            '나의 점수' +
-          '</span>' +
-          '<span class="score-legend-item">' +
-            '<span class="score-legend-dot top20"></span>' +
-            '상위 20% 평균' +
-          '</span>' +
-          '<span class="score-legend-item">' +
-            '<span class="score-legend-dot all"></span>' +
-            '전체 평균' +
-          '</span>' +
-        '</div>' +
-
-        '<div class="score-svg-wrap">' +
-          buildTotalTrendSvg_(trend) +
-        '</div>' +
-
-        '<div class="score-summary-strip">' +
-          scoreSummaryCell_(
-            '나의 평균',
-            summary.myAverageTotal,
-            '/ 400'
-          ) +
-          scoreSummaryCell_(
-            '상위 20% 평균',
-            summary.top20AverageTotal,
-            '/ 400'
-          ) +
-          scoreSummaryCell_(
-            '전체 평균',
-            summary.overallAverageTotal,
-            '/ 400'
-          ) +
-        '</div>' +
+    '<div class="score-section-title">최근 시험 성적 추이</div>' +
+    '<div class="score-chart-box">' +
+      '<div class="score-chart-title">' +
+        '<strong>총점 추이</strong>' +
+        '<span class="score-chart-unit">400점 만점</span>' +
       '</div>' +
-
-      '<div class="score-test-title">시험별 성적</div>' +
-
-      '<div class="score-test-list">' +
-        scores.map(function(row) {
-          return buildScoreTestCard_(
-            row,
-            subjects
-          );
-        }).join('') +
+      '<div class="score-legend-row">' +
+        '<span class="score-legend-item"><i class="score-legend-dot mine"></i>내 점수</span>' +
+        '<span class="score-legend-item"><i class="score-legend-dot top20"></i>상위 20% 평균</span>' +
+        '<span class="score-legend-item"><i class="score-legend-dot all"></i>전체 평균</span>' +
       '</div>' +
-
-      '<div class="score-note">' +
-        '※ 상위 20%: 3개 반 전체 응시자 기준 상위 20%의 총점 평균입니다.' +
+      '<div class="score-svg-wrap">' +
+        renderScoreTrendSvg_(trend) +
       '</div>' +
+    '</div>' +
 
+    '<div class="score-summary-strip">' +
+      renderScoreSummaryCell_(
+        "내 최근 평균",
+        formatScoreValue_(summary.myAverageTotal)
+      ) +
+      renderScoreSummaryCell_(
+        "전체 평균",
+        formatScoreValue_(summary.overallAverageTotal)
+      ) +
+      renderScoreSummaryCell_(
+        "상위 20% 평균",
+        formatScoreValue_(summary.top20AverageTotal)
+      ) +
+    '</div>' +
+
+    '<div class="score-section-title">시험별 성적</div>' +
+    '<div class="score-test-list">' +
+      scores.map(function(item) {
+        return renderScoreHistoryCard_(item, subjects);
+      }).join("") +
     '</div>';
+
+  window.latestScoreAnalysis_ = latest;
 }
 
 
-function scoreSummaryCell_(
-  label,
-  value,
-  suffix
-) {
+function renderLatestScoreCard_(latest) {
+  if (!latest) return "";
+
+  const subjects =
+    Array.isArray(latest.subjects)
+      ? latest.subjects
+      : [];
+
+  const totalText =
+    latest.total === null ||
+    latest.total === undefined
+      ? "-"
+      : formatScoreValue_(latest.total);
+
+  const rankText =
+    latest.rank && latest.participants
+      ? latest.rank + "위 / " +
+        latest.participants + "명"
+      : "-";
+
+  const percentileText =
+    latest.percentile === null ||
+    latest.percentile === undefined
+      ? "-"
+      : "상위 " +
+        formatScoreValue_(latest.percentile) +
+        "%";
+
+  return (
+    '<div class="latest-score-card">' +
+      '<div class="latest-score-head">' +
+        '<div>' +
+          '<div class="latest-score-kicker">최근 시험 정리</div>' +
+          '<div class="latest-score-name">' +
+            escapeHtml(latest.examName || "최근 시험") +
+          '</div>' +
+          '<div class="latest-score-date">' +
+            escapeHtml(latest.examDate || "") +
+          '</div>' +
+        '</div>' +
+        '<div class="latest-score-total">' +
+          '<strong>' + escapeHtml(totalText) + '</strong>' +
+          '<span>/ ' +
+            escapeHtml(
+              String(latest.maxTotal || 400)
+            ) +
+          '점</span>' +
+        '</div>' +
+      '</div>' +
+
+      '<div class="latest-subject-grid">' +
+        subjects.map(function(item) {
+          return (
+            '<div class="latest-subject-box">' +
+              '<div class="latest-subject-name">' +
+                escapeHtml(item.name || "-") +
+              '</div>' +
+              '<div class="latest-subject-score">' +
+                escapeHtml(
+                  formatScoreValue_(item.score)
+                ) +
+              '</div>' +
+              '<div class="latest-subject-avg">전체평균 ' +
+                escapeHtml(
+                  formatScoreValue_(item.average)
+                ) +
+              '</div>' +
+            '</div>'
+          );
+        }).join("") +
+      '</div>' +
+
+      '<div class="latest-rank-grid">' +
+        renderLatestRankBox_("직렬 석차", rankText) +
+        renderLatestRankBox_("상위 비율", percentileText) +
+        renderLatestRankBox_(
+          "전체 평균",
+          formatScoreValue_(latest.overallAverage)
+        ) +
+      '</div>' +
+
+      '<div class="score-ai-box">' +
+        '<strong>AI 성적 분석</strong>' +
+        escapeHtml(
+          latest.aiComment ||
+          "시험 결과를 바탕으로 학습 흐름을 확인해보세요."
+        ) +
+      '</div>' +
+
+      '<button class="score-detail-button" type="button" ' +
+        'onclick="openLatestScoreModal()">상세 분석 보기</button>' +
+    '</div>'
+  );
+}
+
+
+function renderLatestRankBox_(label, value) {
+  return (
+    '<div class="latest-rank-box">' +
+      '<div class="latest-rank-label">' +
+        escapeHtml(label) +
+      '</div>' +
+      '<div class="latest-rank-value">' +
+        escapeHtml(value || "-") +
+      '</div>' +
+    '</div>'
+  );
+}
+
+
+function renderScoreSummaryCell_(label, value) {
   return (
     '<div class="score-summary-cell">' +
       '<div class="score-summary-label">' +
         escapeHtml(label) +
       '</div>' +
       '<div class="score-summary-value">' +
-        escapeHtml(
-          value == null
-            ? '-'
-            : String(value)
-        ) +
-        ' <span style="font-size:10px;font-weight:700;color:#777">' +
-        escapeHtml(suffix || '') +
-        '</span>' +
+        escapeHtml(value || "-") +
       '</div>' +
     '</div>'
   );
 }
 
 
-function buildScoreTestCard_(
-  row,
-  subjects
-) {
-  const participants =
-    row.participants || '';
-
-  const rank =
-    row.rank || '';
-
+function renderScoreHistoryCard_(item, subjects) {
   const rankText =
-    rank && participants
-      ? rank +
-        '위 / ' +
-        participants +
-        '명'
-      : '-';
-
-  const percentileText =
-    row.percentile == null ||
-    row.percentile === ''
-      ? ''
-      : '상위 ' +
-        row.percentile +
-        '%';
+    item.rank && item.participants
+      ? item.rank + "위 / " +
+        item.participants + "명"
+      : "-";
 
   return (
-    '<div class="score-test-card">' +
-
-      '<div class="score-test-head">' +
+    '<div class="score-history-card">' +
+      '<div class="score-history-head">' +
         '<div>' +
-          '<div class="score-test-name">' +
-            escapeHtml(
-              row.examName || '-'
-            ) +
+          '<div class="score-history-name">' +
+            escapeHtml(item.examName || "시험") +
           '</div>' +
-          '<div class="score-test-date">' +
-            escapeHtml(
-              row.examDate || ''
-            ) +
+          '<div class="score-history-date">' +
+            escapeHtml(item.examDate || "") +
           '</div>' +
         '</div>' +
-
-        '<div style="text-align:right">' +
-          '<div class="score-test-rank">' +
-            escapeHtml(rankText) +
-          '</div>' +
-          (
-            percentileText
-              ? '<div class="score-rank-percent">' +
-                escapeHtml(
-                  percentileText
-                ) +
-                '</div>'
-              : ''
-          ) +
+        '<div class="score-history-rank">' +
+          escapeHtml(rankText) +
         '</div>' +
       '</div>' +
-
-      '<div class="score-test-grid">' +
-
-        scoreMetric_(
-          '총점',
-          row.total,
-          '400',
-          row.average
-            ? '평균 ' +
-              row.average
-            : ''
+      '<div class="score-history-grid">' +
+        renderHistoryMetric_("국어", item.korean) +
+        renderHistoryMetric_("영어", item.english) +
+        renderHistoryMetric_(
+          subjects.major1 || "전공1",
+          item.major1
         ) +
-
-        scoreMetric_(
-          '국어',
-          row.korean,
-          '100',
-          ''
+        renderHistoryMetric_(
+          subjects.major2 || "전공2",
+          item.major2
         ) +
-
-        scoreMetric_(
-          '영어',
-          row.english,
-          '100',
-          ''
-        ) +
-
-        scoreMetric_(
-          subjects.major1 || '전공1',
-          row.major1,
-          '100',
-          ''
-        ) +
-
-        scoreMetric_(
-          subjects.major2 || '전공2',
-          row.major2,
-          '100',
-          ''
-        ) +
-
+        renderHistoryMetric_("총점", item.total) +
       '</div>' +
-
     '</div>'
   );
 }
 
 
-function scoreMetric_(
-  label,
-  value,
-  maxValue,
-  subText
-) {
+function renderHistoryMetric_(label, value) {
   return (
-    '<div class="score-metric">' +
-      '<div class="score-metric-label">' +
+    '<div class="score-history-metric">' +
+      '<div class="score-history-label">' +
         escapeHtml(label) +
       '</div>' +
-
-      '<div class="score-metric-value">' +
-        escapeHtml(
-          value == null ||
-          value === ''
-            ? '-'
-            : String(value)
-        ) +
-        ' <span style="font-size:9px;font-weight:700;color:#888">/ ' +
-          escapeHtml(
-            maxValue || ''
-          ) +
-        '</span>' +
+      '<div class="score-history-value">' +
+        escapeHtml(formatScoreValue_(value)) +
       '</div>' +
-
-      (
-        subText
-          ? '<div class="score-metric-sub">' +
-            escapeHtml(
-              subText
-            ) +
-            '</div>'
-          : ''
-      ) +
-
     '</div>'
   );
 }
 
 
-function buildTotalTrendSvg_(trend) {
+function formatScoreValue_(value) {
   if (
-    !trend ||
-    !trend.length
+    value === null ||
+    value === undefined ||
+    value === ""
+  ) {
+    return "-";
+  }
+
+  const num = Number(value);
+
+  if (!Number.isFinite(num)) {
+    return String(value);
+  }
+
+  return Number.isInteger(num)
+    ? String(num)
+    : num.toFixed(1).replace(/\.0$/, "");
+}
+
+
+function buildLatestFallback_(scores, subjects) {
+  if (!scores || !scores.length) return null;
+
+  const item = scores[0];
+
+  return {
+    examDate: item.examDate || "",
+    examName: item.examName || "최근 시험",
+    total:
+      item.total === undefined
+        ? null
+        : item.total,
+    maxTotal: 400,
+    rank: item.rank || null,
+    participants: item.participants || null,
+    percentile: item.percentile || null,
+    overallAverage: item.overallAverage || null,
+    top20Average: item.top20Average || null,
+    aiComment:
+      "최근 시험 결과를 기준으로 과목별 강점과 보완점을 확인해보세요.",
+    subjects: [
+      {
+        key: "korean",
+        name: "국어",
+        score: item.korean,
+        average: null
+      },
+      {
+        key: "english",
+        name: "영어",
+        score: item.english,
+        average: null
+      },
+      {
+        key: "major1",
+        name: subjects.major1 || "전공1",
+        score: item.major1,
+        average: null
+      },
+      {
+        key: "major2",
+        name: subjects.major2 || "전공2",
+        score: item.major2,
+        average: null
+      }
+    ],
+    distribution: []
+  };
+}
+
+
+function openLatestScoreModal() {
+  const latest =
+    window.latestScoreAnalysis_;
+
+  if (!latest) return;
+
+  closeLatestScoreModal();
+
+  const modal =
+    document.createElement("div");
+
+  modal.id = "latestScoreModal";
+  modal.className = "score-modal";
+
+  const subjects =
+    Array.isArray(latest.subjects)
+      ? latest.subjects
+      : [];
+
+  modal.innerHTML =
+    '<div class="score-modal-backdrop" ' +
+      'onclick="closeLatestScoreModal()"></div>' +
+
+    '<div class="score-modal-panel">' +
+      '<button class="score-modal-close" type="button" ' +
+        'onclick="closeLatestScoreModal()">×</button>' +
+
+      '<div class="score-modal-title">' +
+        escapeHtml(latest.examName || "최근 시험 상세 분석") +
+      '</div>' +
+
+      '<div class="score-modal-date">' +
+        escapeHtml(latest.examDate || "") +
+      '</div>' +
+
+      '<div class="score-modal-rank">' +
+        escapeHtml(
+          latest.rank && latest.participants
+            ? latest.rank + "위 / " +
+              latest.participants + "명 · " +
+              (
+                latest.percentile !== null &&
+                latest.percentile !== undefined
+                  ? "상위 " +
+                    formatScoreValue_(latest.percentile) +
+                    "%"
+                  : ""
+              )
+            : ""
+        ) +
+      '</div>' +
+
+      '<div class="score-detail-chart">' +
+        subjects.map(function(item) {
+          const mine =
+            Number(item.score);
+          const avg =
+            Number(item.average);
+
+          const mineWidth =
+            Number.isFinite(mine)
+              ? Math.max(
+                  0,
+                  Math.min(100, mine)
+                )
+              : 0;
+
+          const avgWidth =
+            Number.isFinite(avg)
+              ? Math.max(
+                  0,
+                  Math.min(100, avg)
+                )
+              : 0;
+
+          return (
+            '<div class="score-detail-row">' +
+              '<div class="score-detail-labels">' +
+                '<span class="score-detail-name">' +
+                  escapeHtml(item.name || "-") +
+                '</span>' +
+                '<span class="score-detail-values">' +
+                  '내 점수 ' +
+                  escapeHtml(formatScoreValue_(item.score)) +
+                  ' · 전체평균 ' +
+                  escapeHtml(formatScoreValue_(item.average)) +
+                '</span>' +
+              '</div>' +
+              '<div class="score-detail-bars">' +
+                '<div class="score-detail-average" style="width:' +
+                  avgWidth + '%"></div>' +
+                '<div class="score-detail-mine" style="width:' +
+                  mineWidth + '%"></div>' +
+              '</div>' +
+            '</div>'
+          );
+        }).join("") +
+      '</div>' +
+
+      '<div class="score-legend">' +
+        '<span><i class="legend-dot mine"></i>내 점수</span>' +
+        '<span><i class="legend-dot"></i>전체 평균</span>' +
+      '</div>' +
+
+      '<div class="score-modal-summary">' +
+        renderModalSummaryBox_(
+          "내 총점",
+          formatScoreValue_(latest.total)
+        ) +
+        renderModalSummaryBox_(
+          "전체 평균",
+          formatScoreValue_(latest.overallAverage)
+        ) +
+        renderModalSummaryBox_(
+          "상위 20% 평균",
+          formatScoreValue_(latest.top20Average)
+        ) +
+        renderModalSummaryBox_(
+          "상위 비율",
+          latest.percentile === null ||
+          latest.percentile === undefined
+            ? "-"
+            : "상위 " +
+              formatScoreValue_(latest.percentile) +
+              "%"
+        ) +
+      '</div>' +
+
+      '<div class="score-section-title">전체 응시자 총점 분포</div>' +
+      renderScoreDistribution_(
+        latest.distribution || []
+      ) +
+
+      '<div class="score-modal-ai">' +
+        '<strong>AI 성적 분석</strong><br>' +
+        escapeHtml(
+          latest.aiComment ||
+          "시험 결과를 바탕으로 학습 흐름을 확인해보세요."
+        ) +
+      '</div>' +
+    '</div>';
+
+  document.body.appendChild(modal);
+}
+
+
+function renderModalSummaryBox_(label, value) {
+  return (
+    '<div class="score-modal-summary-box">' +
+      '<div class="score-modal-summary-label">' +
+        escapeHtml(label) +
+      '</div>' +
+      '<div class="score-modal-summary-value">' +
+        escapeHtml(value || "-") +
+      '</div>' +
+    '</div>'
+  );
+}
+
+
+function renderScoreDistribution_(distribution) {
+  if (
+    !Array.isArray(distribution) ||
+    !distribution.length
   ) {
     return (
       '<div class="placeholder">' +
-      '그래프 데이터가 없습니다.' +
+        '분포 데이터가 없습니다.' +
       '</div>'
     );
   }
 
-  const width = 760;
+  const maxCount =
+    Math.max.apply(
+      null,
+      distribution.map(function(item) {
+        return Number(item.count) || 0;
+      }).concat([1])
+    );
+
+  return (
+    '<div class="score-distribution">' +
+      distribution.map(function(item) {
+        const count =
+          Number(item.count) || 0;
+
+        const height =
+          Math.max(
+            2,
+            Math.round(
+              count / maxCount * 92
+            )
+          );
+
+        return (
+          '<div class="score-dist-col' +
+            (item.isMine ? ' mine' : '') +
+          '">' +
+            '<div class="score-dist-count">' +
+              count +
+            '</div>' +
+            '<div class="score-dist-bar-wrap">' +
+              '<div class="score-dist-bar" style="height:' +
+                height + 'px"></div>' +
+            '</div>' +
+            '<div class="score-dist-label">' +
+              escapeHtml(item.label || "") +
+            '</div>' +
+          '</div>'
+        );
+      }).join("") +
+    '</div>'
+  );
+}
+
+
+function closeLatestScoreModal() {
+  const modal =
+    document.getElementById(
+      "latestScoreModal"
+    );
+
+  if (modal && modal.parentNode) {
+    modal.parentNode.removeChild(modal);
+  }
+}
+
+
+function renderScoreTrendSvg_(trend) {
+  if (
+    !Array.isArray(trend) ||
+    !trend.length
+  ) {
+    return (
+      '<div class="placeholder">' +
+        '성적 추이 데이터가 없습니다.' +
+      '</div>'
+    );
+  }
+
+  const width = 390;
   const height = 315;
-
-  const left = 44;
-  const right = 30;
-  const top = 24;
-  const bottom = 64;
-
-  const plotWidth =
-    width -
-    left -
-    right;
-
-  const plotHeight =
-    height -
-    top -
-    bottom;
-
-  const maxY = 400;
-  const minY = 0;
-
-  const n =
-    trend.length;
+  const left = 36;
+  const right = 18;
+  const top = 25;
+  const bottom = 58;
+  const plotWidth = width - left - right;
+  const plotHeight = height - top - bottom;
 
   function xAt(index) {
-    if (n === 1) {
-      return (
-        left +
-        plotWidth / 2
-      );
+    if (trend.length <= 1) {
+      return left + plotWidth / 2;
     }
 
     return (
       left +
       plotWidth *
       index /
-      (n - 1)
+      (trend.length - 1)
     );
   }
 
   function yAt(value) {
-    const number =
-      Number(value);
-
+    const num = Number(value);
     const safe =
-      Number.isFinite(number)
-        ? Math.max(
-            minY,
-            Math.min(
-              maxY,
-              number
-            )
-          )
+      Number.isFinite(num)
+        ? Math.max(0, Math.min(400, num))
         : 0;
 
     return (
       top +
       plotHeight *
-      (maxY - safe) /
-      (maxY - minY)
+      (1 - safe / 400)
     );
   }
 
   function linePoints(key) {
     return trend
       .map(function(item, index) {
-        const value =
-          item[key];
+        const value = Number(item[key]);
 
-        if (
-          value == null ||
-          value === ''
-        ) {
+        if (!Number.isFinite(value)) {
           return null;
         }
 
         return (
           xAt(index) +
-          ',' +
+          "," +
           yAt(value)
         );
       })
       .filter(Boolean)
-      .join(' ');
+      .join(" ");
   }
 
   function circles(key, color) {
     return trend
       .map(function(item, index) {
-        const value =
-          item[key];
+        const value = Number(item[key]);
 
-        if (
-          value == null ||
-          value === ''
-        ) {
-          return '';
+        if (!Number.isFinite(value)) {
+          return "";
         }
 
-        const x =
-          xAt(index);
-
-        const y =
-          yAt(value);
+        const x = xAt(index);
+        const y = yAt(value);
 
         return (
-          '<circle cx="' +
-          x +
-          '" cy="' +
-          y +
+          '<circle cx="' + x +
+          '" cy="' + y +
           '" r="4" fill="' +
-          color +
-          '"></circle>' +
+          color + '"></circle>' +
 
-          '<text x="' +
-          x +
-          '" y="' +
-          (y - 8) +
+          '<text x="' + x +
+          '" y="' + (y - 8) +
           '" text-anchor="middle" ' +
           'font-size="9" font-weight="700" fill="' +
-          color +
-          '">' +
+          color + '">' +
           escapeHtml(
-            String(value)
+            formatScoreValue_(value)
           ) +
           '</text>'
         );
       })
-      .join('');
+      .join("");
   }
 
   const gridValues =
@@ -2767,104 +3293,70 @@ function buildTotalTrendSvg_(trend) {
   const grid =
     gridValues
       .map(function(value) {
-        const y =
-          yAt(value);
+        const y = yAt(value);
 
         return (
-          '<line x1="' +
-          left +
-          '" y1="' +
-          y +
-          '" x2="' +
-          (width - right) +
-          '" y2="' +
-          y +
+          '<line x1="' + left +
+          '" y1="' + y +
+          '" x2="' + (width - right) +
+          '" y2="' + y +
           '" stroke="#eceef2" stroke-width="1"></line>' +
 
-          '<text x="' +
-          (left - 9) +
-          '" y="' +
-          (y + 3) +
+          '<text x="' + (left - 9) +
+          '" y="' + (y + 3) +
           '" text-anchor="end" font-size="9" fill="#999">' +
           value +
           '</text>'
         );
       })
-      .join('');
+      .join("");
 
   const labels =
     trend
       .map(function(item, index) {
-        const x =
-          xAt(index);
+        const x = xAt(index);
 
         return (
-          '<text x="' +
-          x +
-          '" y="' +
-          (height - 27) +
+          '<text x="' + x +
+          '" y="' + (height - 27) +
           '" text-anchor="middle" ' +
           'font-size="7.5" font-weight="700" fill="#444">' +
-          escapeHtml(
-            item.examName || ''
-          ) +
+          escapeHtml(item.examName || "") +
           '</text>' +
 
-          '<text x="' +
-          x +
-          '" y="' +
-          (height - 12) +
+          '<text x="' + x +
+          '" y="' + (height - 12) +
           '" text-anchor="middle" font-size="7" fill="#999">' +
-          escapeHtml(
-            item.examDate || ''
-          ) +
+          escapeHtml(item.examDate || "") +
           '</text>'
         );
       })
-      .join('');
+      .join("");
 
   return (
     '<svg class="score-svg" ' +
       'viewBox="0 0 ' +
-      width +
-      ' ' +
-      height +
+      width + ' ' + height +
       '" xmlns="http://www.w3.org/2000/svg">' +
 
       grid +
 
-      '<polyline fill="none" stroke="#9a9a9a" stroke-width="2" ' +
-        'points="' +
-        linePoints('overallAverage') +
-        '"></polyline>' +
+      '<polyline fill="none" stroke="#9a9a9a" stroke-width="2" points="' +
+        linePoints("overallAverage") +
+      '"></polyline>' +
 
-      '<polyline fill="none" stroke="#3478d4" stroke-width="2" ' +
-        'points="' +
-        linePoints('top20Average') +
-        '"></polyline>' +
+      '<polyline fill="none" stroke="#3478d4" stroke-width="2" points="' +
+        linePoints("top20Average") +
+      '"></polyline>' +
 
-      '<polyline fill="none" stroke="#ef3b36" stroke-width="2.4" ' +
-        'points="' +
-        linePoints('myTotal') +
-        '"></polyline>' +
+      '<polyline fill="none" stroke="#ef3b36" stroke-width="2.4" points="' +
+        linePoints("myTotal") +
+      '"></polyline>' +
 
-      circles(
-        'overallAverage',
-        '#9a9a9a'
-      ) +
-
-      circles(
-        'top20Average',
-        '#3478d4'
-      ) +
-
-      circles(
-        'myTotal',
-        '#ef3b36'
-      ) +
-
+      circles("overallAverage", "#9a9a9a") +
+      circles("top20Average", "#3478d4") +
+      circles("myTotal", "#ef3b36") +
       labels +
-
     '</svg>'
   );
 }
